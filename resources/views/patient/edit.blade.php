@@ -37,12 +37,22 @@ function change(input){
                   <th colspan="6">Patient Informations</th>
                 </tr>
                 <tr>
-                  <td class="warning">Name</td>
-                  <td><input class="form-control" type="text" name="name" value="{{ $patient->name}}" required></td>
+                  <td class="warning">Surame</td>
+                  <td><input class="form-control" type="text" name="surname" value="{{ $patient->surname}}" required></td>
+                  <td class="warning">Last Name</td>
+                  <td><input class="form-control" type="text" name="last_name" value="{{ $patient->last_name}}" required></td>
                   <td class="warning">Patient Code</td>
                   <td><input class="form-control" type="text" name="patient_code" value="{{ $patient->patient_code}}" required></td>
+                </tr>
+                <tr>
                   <td class="warning">Phone</td>
                   <td><input class="form-control" type="text" name="phone" value=" {{ $patient->phone}}"></td>
+                  <td class="col-sm-2 warning">D.O.B</td>
+                  <td class="col-sm-2">
+                    <input class="form-control" type="text" name="DOB" value="{{ date('d-m-Y', strtotime($patient->DOB)) }}" placeholder="dd-mm-yyyy">
+                  </td>
+                  <td class="col-sm-2 warning">Cell Phone</td>
+                  <td class="col-sm-2"><input class="form-control" type="text" name="cell_phone" value="{{ $patient->cell_phone}}"></td>
                 </tr>
                 <tr>
                   <td class="col-sm-2 warning">Gender</td>
@@ -53,12 +63,10 @@ function change(input){
                       <option value="Other" @if($patient->gender == "Other") selected @endif>Other</option>
                     </select>
                   </td>
-                  <td class="col-sm-2 warning">D.O.B</td>
-                  <td class="col-sm-2">
-                    <input class="form-control" type="text" name="DOB" value="{{ date('d-m-Y', strtotime($patient->DOB)) }}" placeholder="dd-mm-yyyy">
-                  </td>
-                  <td class="col-sm-2 warning">Cell Phone</td>
-                  <td class="col-sm-2"><input class="form-control" type="text" name="cell_phone" value="{{ $patient->cell_phone}}"></td>
+                  <td class="warning">ACC Number</td>
+                  <td><input class="form-control" id="acc_number" type="text" name="acc_number" value="{{ $patient->acc_number}}"></td>
+                  <td class="warning">Blood Type</td>
+                  <td><input class="form-control" type="text" name="blood_type" value="{{ $patient->blood_type}}"></td>
                 </tr>
                 <tr>
                   <td class="warning">ACC</td>
@@ -75,14 +83,8 @@ function change(input){
                       @endif
                     </div>
                   </td>
-                  <td class="warning">ACC Number</td>
-                  <td><input class="form-control" id="acc_number" type="text" name="acc_number" value="{{ $patient->acc_number}}"></td>
-                  <td class="warning">Blood Type</td>
-                  <td><input class="form-control" type="text" name="blood_type" value="{{ $patient->blood_type}}"></td>
-                </tr>
-                <tr>
                   <td class="warning">Address</td>
-                  <td colspan="5">
+                  <td colspan="3">
                     <input class="form-control" type="text" name="address" value="{{ $patient->address}}">
                   </td>
                 </tr>

@@ -72,8 +72,23 @@
             </div>
         </div>
     </nav>
-
-    @yield('content')
+    <div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+      <div class="row">
+        <div class="col-md-12">
+          <div id="pusher"></div>
+            @if(Session::has('message'))
+            <div class="alert alert-info">
+              {{Session::get('message')}}
+            </div>
+            @endif
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          @yield('content')
+        </div>
+      </div>
+    </div>
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>

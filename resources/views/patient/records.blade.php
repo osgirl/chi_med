@@ -20,8 +20,8 @@
           <table class="table table-bordered table-condensed table-hover">
           <tr class="info">
             <th>Patient Code</th>
-            <th>Name</th>
-            <th>Phone</th>
+            <th>Surame</th>
+            <th>Last Name</th>
             <th>Cell Phone</th>
             <th>Date of Birth</th>
             <th>Gender</th>
@@ -29,8 +29,8 @@
           @foreach($records as $r)
           <tr>
             <td><a type="button" class="btn btn-block btn-info" href="{{ url('/patient/'.$r->id) }}">{{ $r->patient_code}}</a></td>
-            <td>{{ $r->name}}</td>
-            <td>{{ $r->phone}}</td>
+            <td>{{ $r->surname}}</td>
+            <td>{{ $r->last_name}}</td>
             <td>{{ $r->cell_phone}}</td>
             <td>{{ $r->DOB}}</td>
             <td>{{ $r->gender}}</td>

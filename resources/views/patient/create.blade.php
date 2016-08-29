@@ -29,12 +29,22 @@ function change(input){
                 <th colspan="6">Patient Informations</th>
               </tr>
               <tr>
-                <td class="warning">Name</td>
-                <td><input class="form-control" type="text" name="name" value="" required></td>
+                <td class="warning">Surname</td>
+                <td><input class="form-control" type="text" name="surname" value="" required></td>
+                <td class="warning">Last Name</td>
+                <td><input class="form-control" type="text" name="last_name" value="" required></td>
                 <td class="warning">Patient Code</td>
                 <td><input class="form-control" type="text" name="patient_code" value="" required></td>
+              </tr>
+              <tr>
                 <td class="warning">Phone</td>
                 <td><input class="form-control" type="text" name="phone" value=""></td>
+                <td class="col-sm-2 warning">D.O.B</td>
+                <td class="col-sm-2">
+                  <input class="form-control" type="text" name="DOB" value="" placeholder="dd-mm-yyyy">
+                </td>
+                <td class="col-sm-2 warning">Cell Phone</td>
+                <td class="col-sm-2"><input class="form-control" type="text" name="cell_phone" value=""></td>
               </tr>
               <tr>
                 <td class="col-sm-2 warning">Gender</td>
@@ -45,12 +55,10 @@ function change(input){
                     <option value="Other">Other</option>
                   </select>
                 </td>
-                <td class="col-sm-2 warning">D.O.B</td>
-                <td class="col-sm-2">
-                  <input class="form-control" type="text" name="DOB" value="" placeholder="dd-mm-yyyy">
-                </td>
-                <td class="col-sm-2 warning">Cell Phone</td>
-                <td class="col-sm-2"><input class="form-control" type="text" name="cell_phone" value=""></td>
+                <td class="warning">ACC Number</td>
+                <td><input class="form-control" id="acc_number" type="text" name="acc_number" value=""></td>
+                <td class="warning">Blood Type</td>
+                <td><input class="form-control" type="text" name="blood_type" value=""></td>
               </tr>
               <tr>
                 <td class="warning">ACC</td>
@@ -61,14 +69,8 @@ function change(input){
                     </label>
                   </div>
                 </td>
-                <td class="warning">ACC Number</td>
-                <td><input class="form-control" id="acc_number" type="text" name="acc_number" value=""></td>
-                <td class="warning">Blood Type</td>
-                <td><input class="form-control" type="text" name="blood_type" value=""></td>
-              </tr>
-              <tr>
                 <td class="warning">Address</td>
-                <td colspan="5">
+                <td colspan="3">
                   <input class="form-control" type="text" name="address" value="">
                 </td>
               </tr>

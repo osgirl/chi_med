@@ -82,7 +82,18 @@ class PhysicalExaminationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $physical = PhysicalExamination::find($id);
+      $physical->update([
+        'position' => $request->position,
+        'side' => $request->side,
+        'direction1' => $request->direction1,
+        'direction1_max' => $request->direction1_max,
+        'direction2' => $request->direction2,
+        'direction2_max' => $request->direction2_max
+      ]);
+
+      return redirect('/physical')->with('message','Updated !');
+
     }
 
     /**

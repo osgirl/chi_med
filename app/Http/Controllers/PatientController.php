@@ -49,7 +49,8 @@ class PatientController extends Controller
       $Patient = Patient::create(
         array(
           'patient_code' => $request->patient_code,
-          'name' => $request->name,
+          'surname' => $request->surname,
+          'last_name' => $request->last_name,
           'phone' => $request->phone,
           'cell_phone' => $request->cell_phone,
           'DOB' => $DOB->format('Y-m-d'),
@@ -104,7 +105,8 @@ class PatientController extends Controller
 
       $list->update([
         'patient_code' => $request->patient_code,
-        'name' => $request->name,
+        'surname' => $request->surname,
+        'last_name' => $request->last_name,
         'phone' => $request->phone,
         'cell_phone' => $request->cell_phone,
         'DOB' => $DOB->format('Y-m-d'),
@@ -114,7 +116,7 @@ class PatientController extends Controller
         'address' => $request->address,
         'blood_type' => $request->blood_type
       ]);
-      return redirect('/patient/'.$id);
+      return redirect('/patient/'.$id)->with('message','Updated !');
     }
 
     /**

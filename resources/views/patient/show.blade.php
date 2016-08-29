@@ -35,7 +35,7 @@
         <div class="col-sm-9">
           <table class="table table-hover">
             <tr class="info">
-              <th colspan="2">{{ $patient->name}}</th>
+              <th colspan="2">{{ $patient->surname}}  {{ $patient->last_name}}</th>
             </tr>
             <tr>
               <td class="col-sm-2 warning">Patient Code:</td>
