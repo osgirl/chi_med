@@ -97,12 +97,17 @@
                 <!--main page-->
                 <div role="tabpanel" class="tab-pane fade in active" id="main">
                   <table class="table table-hover table-bordered table-condense">
+                    <tr class="info">
+                      <td colspan="6">
+                        <h4>{{$patient->surname}} {{$patient->last_name}}</h4>
+                      </td>
+                    </tr>
                     <tr>
-                      <td class="warning">Create Date</td>
+                      <td class="warning">Date</td>
                       <td colspan="2">
                         <!--<h5>{{ date('d-m-Y', strtotime($record->created_at)) }}</h5>-->
                         <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
-                          <input class="span2 form-control" name="created_at" size="16" type="text" value="{{ date('d-m-Y', strtotime($record->created_at)) }}" required>
+                          <input class="span2 form-control" name="date" size="16" type="text" value="{{ date('d-m-Y', strtotime($record->date)) }}" required>
                           <span class="add-on"><i class="icon-th"></i></span>
                         </div>
                       </td>
@@ -123,17 +128,17 @@
                     </tr>
                     <tr>
                       <td class="warning">Current Condition and Accompanied Symptoms</td>
-                      <td colspan="5"><textarea class="form-control" rows="5" name="symptoms">{{ $record->symptoms}}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="symptoms">{{ $record->symptoms}}</textarea></td>
                     </tr>
                     <tr>
                       <td class="warning">General Question</td>
-                      <td colspan="5"><textarea class="form-control" rows="5" name="general_question">{{ $record->general_question }}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="general_question">{{ $record->general_question }}</textarea></td>
                     </tr>
                     <tr>
                       <td class="warning">Current Physical Examinations
                         <button type="button" class="btn btn-default btn-block" onclick="PE_databind();">Add</button>
                       </td>
-                      <td colspan="5"><textarea class="form-control" rows="5" id="physical_examinations" name="physical_examinations">{{ $record->physical_examinations}}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" id="physical_examinations" name="physical_examinations">{{ $record->physical_examinations}}</textarea></td>
                     </tr>
                     <tr class="info">
                       <th colspan="6">Tongue:</th>
@@ -209,11 +214,17 @@
                     </tr>
                     <tr>
                       <td class="warning">Acu-points & Techniques/s & Methods/s</td>
-                      <td colspan="5"><textarea class="form-control" rows="5" name="Acu_points">{{ $record->Acu_points}}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="Acu_points">{{ $record->Acu_points}}</textarea></td>
                     </tr>
                     <tr>
                       <td class="warning">Post Treatment Advice</td>
-                      <td colspan="5"><textarea class="form-control" rows="5" name="treatment_adjustments">{{ $record->treatment_adjustments}}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_adjustments">{{ $record->treatment_adjustments}}</textarea></td>
+                    </tr>
+                    <tr>
+                      <td class="warning">Signature</td>
+                      <td colspan="2"><textarea class="form-control" rows="2"></textarea></td>
+                      <td class="warning">Date</td>
+                      <td colspan="2"><textarea class="form-control" rows="2"></textarea></td>
                     </tr>
                   </table>
                   <input type="submit" class="btn btn-success" value="Submit">

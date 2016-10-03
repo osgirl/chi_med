@@ -77,6 +77,7 @@
             <th></th>
             <th>Treatment Number</th>
             <th>Main Complaint</th>
+            <th>Create Date</th>
             <th>Injury Date</th>
             <th></th>
           </tr>
@@ -85,6 +86,7 @@
             <td><a class="btn btn-info btn-block" href="{{ url('/medical_record/'.$r->id.'/edit')}}">see more</a></td>
             <td>{{ $key+1 }}</td>
             <td>{{ $r->main_complaint}}</td>
+            <td>{{ date('d-m-Y', strtotime($r->date))}}</td>
             <td>{{ date('d-m-Y', strtotime($r->injury_date))}}</td>
             <td>
               <form class="form-horizontal" action="{{ url('/medical_record/'.$r->id)}}" method="post" role="form">

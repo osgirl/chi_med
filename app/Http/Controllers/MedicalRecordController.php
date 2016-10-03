@@ -44,11 +44,14 @@ class MedicalRecordController extends Controller
      */
     public function store(Request $request)
     {
-      $date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
-      $injury_date = $date->format('Y-m-d');
+      $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
+      $injury_date = $inj_date->format('Y-m-d');
+      $cre_date = DateTime::createFromFormat('d-m-Y', $request->date);
+      $date = $cre_date->format('Y-m-d');
       $MedicalRecords = MedicalRecord::create(
       array(
         'patient_id' => $request->patient_id,
+        'date' => $date,
         'injury_date' => $injury_date,
         'main_complaint' => $request->main_complaint,
         'symptoms' => $request->symptoms,
@@ -106,9 +109,10 @@ class MedicalRecordController extends Controller
     {
         $physical = PhysicalExamination::get();
         $record = MedicalRecord::find($id);
+        $patient = Patient::select('surname','last_name')->where('id','=',$record->patient_id)->first();
         $PE_records = PE_Record::join('physical_examinations', 'p_e__records.physical_examination_id', '=', 'physical_examinations.id')->where('medical_record_id','=',$id)->get();
         return view('/medical_record/edit')->with('record',$record)->with('PE_records',$PE_records)
-              ->with('physical',$physical);
+              ->with('physical',$physical)->with('patient',$patient);
     }
 
     /**
@@ -120,10 +124,10 @@ class MedicalRecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
-      $injury_date = $date->format('Y-m-d');
-      $c_date = DateTime::createFromFormat('d-m-Y', $request->created_at);
-      $created_at = $c_date->format('Y-m-d');
+      $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
+      $injury_date = $inj_date->format('Y-m-d');
+      $cre_date = DateTime::createFromFormat('d-m-Y', $request->date);
+      $date = $cre_date->format('Y-m-d');
 
       $MedicalRecords = MedicalRecord::find($id);
       $MedicalRecords->update([
@@ -151,7 +155,7 @@ class MedicalRecordController extends Controller
         'Acu_points' => $request->Acu_points,
         'treatment_adjustments' => $request->treatment_adjustments,
         //20161003 modify timestamp
-        'created_at' => $created_at
+        'date' => $date
       ]);
 
       $del_pe = PE_Record::where('medical_record_id','=',$id);
