@@ -100,7 +100,11 @@
                     <tr>
                       <td class="warning">Create Date</td>
                       <td colspan="2">
-                        <h5>{{ date('d-m-Y', strtotime($record->created_at)) }}</h5>
+                        <!--<h5>{{ date('d-m-Y', strtotime($record->created_at)) }}</h5>-->
+                        <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
+                          <input class="span2 form-control" name="created_at" size="16" type="text" value="{{ date('d-m-Y', strtotime($record->created_at)) }}" required>
+                          <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
                       </td>
                       <td class="warning">Injury Date</td>
                       <td colspan="2">
@@ -208,7 +212,7 @@
                       <td colspan="5"><textarea class="form-control" rows="5" name="Acu_points">{{ $record->Acu_points}}</textarea></td>
                     </tr>
                     <tr>
-                      <td class="warning">Explain the Treatment Adjustments (if any)</td>
+                      <td class="warning">Post Treatment Advice</td>
                       <td colspan="5"><textarea class="form-control" rows="5" name="treatment_adjustments">{{ $record->treatment_adjustments}}</textarea></td>
                     </tr>
                   </table>

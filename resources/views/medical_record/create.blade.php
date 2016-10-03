@@ -207,7 +207,7 @@
                       <td colspan="5"><textarea class="form-control" rows="5" name="Acu_points"></textarea></td>
                     </tr>
                     <tr>
-                      <td class="warning">Explain the Treatment Adjustments (if any)</td>
+                      <td class="warning">Post Treatment Advice</td>
                       <td colspan="5"><textarea class="form-control" rows="5" name="treatment_adjustments"></textarea></td>
                     </tr>
                   </table>

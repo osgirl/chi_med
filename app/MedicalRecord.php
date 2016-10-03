@@ -33,6 +33,7 @@ class MedicalRecord extends Model
    'TCM_disease',
    'TCM_type',
    'Acu_points',
-   'treatment_adjustments'
+   'treatment_adjustments',
+   'created_at'
    ];
 }

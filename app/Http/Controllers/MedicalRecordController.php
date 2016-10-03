@@ -122,6 +122,8 @@ class MedicalRecordController extends Controller
     {
       $date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
       $injury_date = $date->format('Y-m-d');
+      $c_date = DateTime::createFromFormat('d-m-Y', $request->created_at);
+      $created_at = $c_date->format('Y-m-d');
 
       $MedicalRecords = MedicalRecord::find($id);
       $MedicalRecords->update([
@@ -147,7 +149,9 @@ class MedicalRecordController extends Controller
         'TCM_disease' => $request->TCM_disease,
         'TCM_type' => $request->TCM_type,
         'Acu_points' => $request->Acu_points,
-        'treatment_adjustments' => $request->treatment_adjustments
+        'treatment_adjustments' => $request->treatment_adjustments,
+        //20161003 modify timestamp
+        'created_at' => $created_at
       ]);
 
       $del_pe = PE_Record::where('medical_record_id','=',$id);
