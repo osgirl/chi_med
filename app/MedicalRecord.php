@@ -32,7 +32,10 @@ class MedicalRecord extends Model
    'kidney_yin',
    'TCM_disease',
    'TCM_type',
+   'treatment_principle',
    'Acu_points',
+   'treatment_explanation',
+   'cautions',
    'treatment_adjustments',
    'date'
    ];

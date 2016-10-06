@@ -126,17 +126,17 @@
                     </tr>
                     <tr>
                       <td class="warning">Current Condition and Accompanied Symptoms</td>
-                      <td colspan="5"><textarea class="form-control" rows="5" name="symptoms"></textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="symptoms"></textarea></td>
                     </tr>
                     <tr>
                       <td class="warning">General Question</td>
-                      <td colspan="5"><textarea class="form-control" rows="5" name="general_question"></textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="general_question"></textarea></td>
                     </tr>
                     <tr>
                       <td class="warning">Current Physical Examinations
                         <button type="button" class="btn btn-default btn-block" onclick="PE_databind();">Add</button>
                       </td>
-                      <td colspan="5"><textarea class="form-control" rows="5" id="physical_examinations" name="physical_examinations"></textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" id="physical_examinations" name="physical_examinations"></textarea></td>
                     </tr>
                     <tr class="info">
                       <th colspan="6">Tongue:</th>
@@ -211,12 +211,24 @@
                       <td colspan="5"><input class="form-control" type="text" name="TCM_type" value=""></td>
                     </tr>
                     <tr>
+                      <td class="warning">Treatment Principle</td>
+                      <td colspan="5"><input class="form-control" type="text" name="treatment_principle" value=""></td>
+                    </tr>
+                    <tr>
                       <td class="warning">Acu-points & Techniques/s & Methods/s</td>
-                      <td colspan="5"><textarea class="form-control" rows="5" name="Acu_points"></textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="Acu_points"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td class="warning">Explanation Of Treatment</td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_explanation"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td class="warning">Cautions, Contraindications and Red Flag</td>
+                      <td colspan="5"><input class="form-control" type="text" name="cautions" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Post Treatment Advice</td>
-                      <td colspan="5"><textarea class="form-control" rows="5" name="treatment_adjustments"></textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_adjustments"></textarea></td>
                     </tr>
                   </table>
                   <input type="submit" class="btn btn-success" value="Submit">

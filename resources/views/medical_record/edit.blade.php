@@ -213,18 +213,24 @@
                       <td colspan="5"><input class="form-control" type="text" name="TCM_type" value="{{ $record->TCM_type}}"></td>
                     </tr>
                     <tr>
+                      <td class="warning">Treatment Principle</td>
+                      <td colspan="5"><input class="form-control" type="text" name="treatment_principle" value="{{ $record->treatment_principle}}"></td>
+                    </tr>
+                    <tr>
                       <td class="warning">Acu-points & Techniques/s & Methods/s</td>
                       <td colspan="5"><textarea class="form-control" rows="7" name="Acu_points">{{ $record->Acu_points}}</textarea></td>
                     </tr>
                     <tr>
-                      <td class="warning">Post Treatment Advice</td>
-                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_adjustments">{{ $record->treatment_adjustments}}</textarea></td>
+                      <td class="warning">Explanation Of Treatment</td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_explanation">{{ $record->treatment_explanation}}</textarea></td>
                     </tr>
                     <tr>
-                      <td class="warning">Signature</td>
-                      <td colspan="2"><textarea class="form-control" rows="2"></textarea></td>
-                      <td class="warning">Date</td>
-                      <td colspan="2"><textarea class="form-control" rows="2"></textarea></td>
+                      <td class="warning">Cautions, Contraindications and Red Flag</td>
+                      <td colspan="5"><input class="form-control" type="text" name="cautions" value="{{ $record->cautions }}"></td>
+                    </tr>
+                    <tr>
+                      <td class="warning">Post Treatment Advice</td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_adjustments">{{ $record->treatment_adjustments}}</textarea></td>
                     </tr>
                   </table>
                   <input type="submit" class="btn btn-success" value="Submit">

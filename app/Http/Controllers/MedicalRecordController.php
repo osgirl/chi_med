@@ -72,7 +72,10 @@ class MedicalRecordController extends Controller
         'kidney_yin' => $request->kidney_yin,
         'TCM_disease' => $request->TCM_disease,
         'TCM_type' => $request->TCM_type,
+        'treatment_principle' => $request->treatment_principle,
         'Acu_points' => $request->Acu_points,
+        'treatment_explanation' => $request->treatment_explanation,
+        'cautions' => $request->cautions,
         'treatment_adjustments' => $request->treatment_adjustments
       ));
       $record_id = MedicalRecord::select('id')->orderBy('id','desc')->first();
@@ -152,7 +155,10 @@ class MedicalRecordController extends Controller
         'kidney_yin' => $request->kidney_yin,
         'TCM_disease' => $request->TCM_disease,
         'TCM_type' => $request->TCM_type,
+        'treatment_principle' => $request->treatment_principle,
         'Acu_points' => $request->Acu_points,
+        'treatment_explanation' => $request->treatment_explanation,
+        'cautions' => $request->cautions,
         'treatment_adjustments' => $request->treatment_adjustments,
         //20161003 modify timestamp
         'date' => $date
