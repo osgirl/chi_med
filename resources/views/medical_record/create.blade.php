@@ -95,24 +95,24 @@
                 <!--main page-->
                 <div role="tabpanel" class="tab-pane fade in active" id="main">
                   <table class="table table-hover table-bordered table-condense">
-                    <tr class="info">
-                      <th colspan="6">
+                    <tr class="warning">
+                      <th>
                         {{ $patient->surname}} {{$patient->last_name}}
                         <input type="hidden" name="patient_id" value="{{ $patient->id }}">
                       </th>
-                    </tr>
-                    <tr>
-                      <td class="warning">Date</td>
-                      <td colspan="2">
+                      <th>
+                        DOB : {{ $patient->DOB }}
+                      </th>
+                      <th>
+                        No.
+                      </th>
+                      <td>
+                        <input class="form-control" type="number" min="0" step="1" value="{{ $treatment_number }}">
+                      </td>
+                      <td>Date</td>
+                      <td>
                         <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
                           <input class="span2 form-control" name="date" size="16" type="text" value="{{ date('d-m-Y')}}" required>
-                          <span class="add-on"><i class="icon-th"></i></span>
-                        </div>
-                      </td>
-                      <td class="warning">Injury Date</td>
-                      <td colspan="2">
-                        <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
-                          <input class="span2 form-control" name="injury_date" size="16" type="text" value="{{ date('d-m-Y')}}" required>
                           <span class="add-on"><i class="icon-th"></i></span>
                         </div>
                       </td>

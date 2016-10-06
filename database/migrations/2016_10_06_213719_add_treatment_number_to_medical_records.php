@@ -12,7 +12,10 @@ class AddTreatmentNumberToMedicalRecords extends Migration
      */
     public function up()
     {
-        //
+      Schema::table('medical_records', function($table)
+      {
+        $table->integer('treatment_number')->nullable()->after('patient_id');
+      });
     }
 
     /**

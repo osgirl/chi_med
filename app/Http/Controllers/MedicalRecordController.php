@@ -10,6 +10,7 @@ use App\MedicalRecord;
 use App\PhysicalExamination;
 use App\PE_Record;
 use Datetime;
+use DB;
 
 class MedicalRecordController extends Controller
 {
@@ -32,8 +33,9 @@ class MedicalRecordController extends Controller
     {
         $patient = Patient::find($patient);
         $physical = PhysicalExamination::get();
+        $treatment_number = MedicalRecord::where('patient_id','=',$patient->id)->max('treatment_number') +1 ;
         return view('medical_record/create')
-        ->with('patient',$patient)->with('physical',$physical);
+        ->with('patient',$patient)->with('physical',$physical)->with('treatment_number',$treatment_number);
     }
 
     /**
@@ -48,9 +50,13 @@ class MedicalRecordController extends Controller
       $injury_date = $inj_date->format('Y-m-d');
       $cre_date = DateTime::createFromFormat('d-m-Y', $request->date);
       $date = $cre_date->format('Y-m-d');
+      //find the max treatment number
+      $treatment_number = DB::table('medical_records')->where('patient_id','=',$request->patient_id)->max('treatment_number') + 1;
+
       $MedicalRecords = MedicalRecord::create(
       array(
         'patient_id' => $request->patient_id,
+        'treatment_number' => $treatment_number,
         'date' => $date,
         'injury_date' => $injury_date,
         'main_complaint' => $request->main_complaint,
@@ -101,7 +107,6 @@ class MedicalRecordController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -112,7 +117,7 @@ class MedicalRecordController extends Controller
     {
         $physical = PhysicalExamination::get();
         $record = MedicalRecord::find($id);
-        $patient = Patient::select('surname','last_name')->where('id','=',$record->patient_id)->first();
+        $patient = Patient::select('surname','last_name','DOB')->where('id','=',$record->patient_id)->first();
         $PE_records = PE_Record::join('physical_examinations', 'p_e__records.physical_examination_id', '=', 'physical_examinations.id')->where('medical_record_id','=',$id)->get();
         return view('/medical_record/edit')->with('record',$record)->with('PE_records',$PE_records)
               ->with('physical',$physical)->with('patient',$patient);
