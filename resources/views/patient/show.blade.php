@@ -78,7 +78,6 @@
             <th>Treatment Number</th>
             <th>Main Complaint</th>
             <th>Create Date</th>
-            <th>Injury Date</th>
             <th></th>
           </tr>
           @foreach($records as $key=>$r)
@@ -87,7 +86,6 @@
             <td>{{ $r->treatment_number}}</td>
             <td>{{ $r->main_complaint}}</td>
             <td>{{ date('d-m-Y', strtotime($r->date))}}</td>
-            <td>{{ date('d-m-Y', strtotime($r->injury_date))}}</td>
             <td>
               <form class="form-horizontal" action="{{ url('/medical_record/'.$r->id)}}" method="post" role="form">
               {!! csrf_field() !!}
