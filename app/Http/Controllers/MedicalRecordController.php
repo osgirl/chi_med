@@ -57,10 +57,8 @@ class MedicalRecordController extends Controller
     public function store(Request $request)
     {
       if($request->treatment_number == 1){
-        if(isset($request->injury_date)){
-          $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
-          $injury_date = $inj_date->format('Y-m-d');
-        }
+        $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
+        $injury_date = $inj_date->format('Y-m-d');
       }else{
         $injury_date = null;
       }
@@ -154,8 +152,10 @@ class MedicalRecordController extends Controller
     public function update(Request $request, $id)
     {
       if($request->treatment_number == 1){
-        $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
-        $injury_date = $inj_date->format('Y-m-d');
+        if(isset($request->injury_date)){
+          $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
+          $injury_date = $inj_date->format('Y-m-d');
+        }
       }else{
         $injury_date = null;
       }
