@@ -49,7 +49,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Home</a></li>
                     <li><a href="{{ url('/physical') }}">Physical Setup</a></li>
-                    <li><a href="{{ url('/test') }}">test</a></li>
+                    <!--<li><a href="{{ url('/test') }}">test</a></li>-->
                 </ul>
 
                 <!-- Right Side Of Navbar -->
