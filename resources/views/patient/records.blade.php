@@ -5,6 +5,7 @@
     <div class="row">
       <div class="col-sm-3">
         <a href="{{ url('/home') }}" class="btn btn-warning btn-block">
+          <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
           Back
         </a>
       </div>

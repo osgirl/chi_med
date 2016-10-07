@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
       <div class="col-sm-3 col-sm-offset-1">
-        @if($patient->acc == 1)
+        @if( count($acc_infos) > 0 )
         <a href="{{ url('/patient_index/acc' ) }}" class="btn btn-warning btn-block">
         @else
         <a href="{{ url('/patient_index/nonacc' ) }}" class="btn btn-warning btn-block">
@@ -27,80 +27,142 @@
       </div>
       <div class="col-sm-10 col-sm-offset-1">
         @if(count($patient)>0)
-        <div class="col-sm-3">
-          <a href="{{ url('/medical_record/create/'.$patient->id ) }}" class="thumbnail">
-            <img src="{{ url('/img/add.png') }}" alt="...">
-          </a>
-        </div>
-        <div class="col-sm-9">
+        <div class="col-sm-12">
           <table class="table table-hover">
             <tr class="info">
-              <th colspan="2">{{ $patient->surname}}  {{ $patient->last_name}}</th>
+              <th colspan="4">{{ $patient->surname}}  {{ $patient->last_name}}</th>
             </tr>
             <tr>
               <td class="col-sm-2 warning">Patient Code:</td>
               <td class="col-sm-4">{{ $patient->patient_code}}</td>
-            </tr>
-            @if($patient->acc == 1)
-            <tr>
-              <td class="warning">ACC</td>
-              <td>YES</td>
+              <td class="col-sm-2 warning">Birthday:</td>
+              <td class="col-sm-4">{{ date('d-m-Y', strtotime($patient->DOB)) }}</td>
             </tr>
             <tr>
-              <td class="warning">ACC Number</td>
-              <td>{{ $patient->acc_number }}</td>
-            </tr>
-            @else
-            <tr>
-              <td class="warning">ACC</td>
-              <td>NO</td>
-            </tr>
-            @endif
-            <tr>
-              <td class="warning">Birthday:</td><td>{{ date('d-m-Y', strtotime($patient->DOB)) }}</td>
-            </tr>
-            <tr>
+              <td class="warning">Name:</td><td>{{ $patient->surname}}  {{ $patient->last_name}}</td>
               <td class="warning">Gender:</td><td>{{ $patient->gender}}</td>
             </tr>
             <tr>
               <td class="warning">Phone:</td><td>{{ $patient->phone}}</td>
-            </tr>
-            <tr>
               <td class="warning">Cell Phone:</td><td>{{ $patient->cell_phone}}</td>
             </tr>
           </table>
           @endif
         </div>
-        <table class="table table-bordered table-condensed table-hover">
-          @if(count($records)>0)
-          <tr class="info">
-            <th></th>
-            <th>Treatment Number</th>
-            <th>Main Complaint</th>
-            <th>Create Date</th>
-            <th></th>
-          </tr>
-          @foreach($records as $key=>$r)
-          <tr>
-            <td><a class="btn btn-info btn-block" href="{{ url('/medical_record/'.$r->id.'/edit')}}">see more</a></td>
-            <td>{{ $r->treatment_number}}</td>
-            <td>{{ $r->main_complaint}}</td>
-            <td>{{ date('d-m-Y', strtotime($r->date))}}</td>
-            <td>
-              <form class="form-horizontal" action="{{ url('/medical_record/'.$r->id)}}" method="post" role="form">
-              {!! csrf_field() !!}
-                <input type="hidden" name="_method" value="delete" />
-                <input type="submit" class="btn btn-danger btn-block" value="Delete">
-              </form>
-            </td>
-          </tr>
+        <div class="col-sm-12">
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          @foreach($acc_infos as $key=>$acc)
+            <div class="panel panel-info">
+              <div class="panel-heading" role="tab">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ $acc->acc_number}}" aria-expanded="@if($key==0) true @else false @endif" aria-controls="{{ $acc->acc_number}}">
+                    {{ $acc->acc_number}} ({{ $acc->parts }})
+                  </a>
+                </h4>
+              </div>
+              <div id="{{ $acc->acc_number}}" class="panel-collapse collapse @if($key==0) in @endif" role="tabpanel" aria-labelledby="{{ $acc->acc_number}}">
+                <div class="panel-body">
+                  <div class="col-sm-12">
+                    <div class="col-sm-3">
+                      <a href="{{ url('/medical_record/create/'.$patient->id.'/'.$acc->id ) }}" class="thumbnail">
+                        <img src="{{ url('/img/add.png') }}" alt="...">
+                      </a>
+                    </div>
+                    <div class="col-sm-9">
+                      <table class="table table-bordered table-condensed table-hover">
+                        @if(count($records)>0)
+                        <tr class="info">
+                          <th></th>
+                          <th>Treatment Number</th>
+                          <th>Main Complaint</th>
+                          <th>Create Date</th>
+                          <th></th>
+                        </tr>
+                        @foreach($records as $key=>$r)
+                          @if($r->acc_id == $acc->id)
+                          <tr>
+                            <td><a class="btn btn-info btn-block" href="{{ url('/medical_record/'.$r->id.'/edit')}}">see more</a></td>
+                            <td>{{ $r->treatment_number}}</td>
+                            <td>{{ $r->main_complaint}}</td>
+                            <td>{{ date('d-m-Y', strtotime($r->date))}}</td>
+                            <td>
+                              <form class="form-horizontal" action="{{ url('/medical_record/'.$r->id)}}" method="post" role="form">
+                              {!! csrf_field() !!}
+                                <input type="hidden" name="_method" value="delete" />
+                                <input type="submit" class="btn btn-danger btn-block" value="Delete">
+                              </form>
+                            </td>
+                          </tr>
+                          @endif
+                        @endforeach
+                        @else
+                        <div class="col-sm-12" align="center">
+                          <h3>No Data Yet !</h3>
+                        </div>
+                        @endif
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           @endforeach
-          @else
-          <div class="col-sm-12" align="center">
-            <h3>No Data Yet !</h3>
+          <div class="panel panel-info">
+            <div class="panel-heading" role="tab">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#nonacc" aria-expanded="@if(count($acc_infos) == 0) true @else false @endif" aria-controls="nonacc">
+                  Non-Acc
+                </a>
+              </h4>
+            </div>
+            <div id="nonacc" class="panel-collapse collapse @if(count($acc_infos) == 0) in @endif" role="tabpanel" aria-labelledby="">
+              <div class="panel-body">
+                <div class="col-sm-12">
+                  <div class="col-sm-3">
+                    <a href="{{ url('/medical_record/create/'.$patient->id.'/0' ) }}" class="thumbnail">
+                      <img src="{{ url('/img/add.png') }}" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-sm-9">
+                    <table class="table table-bordered table-condensed table-hover">
+                      @if(count($records)>0)
+                      <tr class="info">
+                        <th></th>
+                        <th>Treatment Number</th>
+                        <th>Main Complaint</th>
+                        <th>Create Date</th>
+                        <th></th>
+                      </tr>
+                      @foreach($records as $key=>$r)
+                        @if($r->acc_id == 0)
+                        <tr>
+                          <td><a class="btn btn-info btn-block" href="{{ url('/medical_record/'.$r->id.'/edit')}}">see more</a></td>
+                          <td>{{ $r->treatment_number}}</td>
+                          <td>{{ $r->main_complaint}}</td>
+                          <td>{{ date('d-m-Y', strtotime($r->date))}}</td>
+                          <td>
+                            <form class="form-horizontal" action="{{ url('/medical_record/'.$r->id)}}" method="post" role="form">
+                            {!! csrf_field() !!}
+                              <input type="hidden" name="_method" value="delete" />
+                              <input type="submit" class="btn btn-danger btn-block" value="Delete">
+                            </form>
+                          </td>
+                        </tr>
+                        @endif
+                      @endforeach
+                      @else
+                      <div class="col-sm-12" align="center">
+                        <h3>No Data Yet !</h3>
+                      </div>
+                      @endif
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          @endif
-        </table>
+          </div>
+        </div>
       </div>
     </div>
 </div>

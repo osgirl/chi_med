@@ -21,13 +21,15 @@ Route::group(['middleware' => ['web','auth']], function () {
 
   Route::get('/home', 'HomeController@index');
 
+  Route::get('/test', 'HomeController@test');
+
   Route::resource('/physical', 'PhysicalExaminationController');
 
   Route::resource('/medical_record', 'MedicalRecordController');
 
   Route::resource('/patient', 'PatientController');
 
-  Route::get('/medical_record/create/{patient}', 'MedicalRecordController@create');
+  Route::get('/medical_record/create/{patient}/{acc}', 'MedicalRecordController@create');
 
   Route::get('/patient_index/{type}', 'PatientController@index');
 

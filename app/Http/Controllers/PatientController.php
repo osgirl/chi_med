@@ -8,6 +8,7 @@ use App\Http\Requests;
 use DateTime;
 use App\Patient;
 use App\MedicalRecord;
+use DB;
 
 class PatientController extends Controller
 {
@@ -18,10 +19,17 @@ class PatientController extends Controller
      */
     public function index($type)
     {
+      //get the array to check if the acc_infos table contains the patient
+      $acc_id = DB::table('acc_infos')->select('patient_id')->distinct()->get();
+      $id = array();
+      foreach($acc_id as $a){
+        array_push($id,$a->patient_id);
+      }
+
       if($type == "acc"){
-        $records = Patient::where('acc','=',true)->orderBy('id')->get();
+        $records = Patient::whereIn('id',$id)->orderBy('id')->get();
       }elseif($type == "nonacc"){
-        $records = Patient::where('acc','=',false)->orderBy('id')->get();
+        $records = Patient::whereNotIn('id',$id)->orderBy('id')->get();
       }
       return view('/patient/records')->with('records',$records)->with('type',$type);
     }
@@ -55,13 +63,22 @@ class PatientController extends Controller
           'cell_phone' => $request->cell_phone,
           'DOB' => $DOB->format('Y-m-d'),
           'gender' => $request->gender,
-          'acc' => $request->acc,
-          'acc_number' => $request->acc_number,
+          //'acc' => $request->acc,
+          //'acc_number' => $request->acc_number,
           'address' => $request->address,
           'blood_type' => $request->blood_type
       ));
-
       $id = Patient::select('id')->orderBy('id','desc')->first();
+
+      $length = count($request->acc_number);
+      for($i=0 ; $i<$length ; $i++){
+        $acc_number = DB::table('acc_infos')->insert(array(
+          'patient_id' => $id->id,
+          'acc_number' => $request->acc_number[$i],
+          'parts'=> $request->acc_part[$i],
+        ));
+      }
+
       return redirect('/patient/'.$id->id);
 
     }
@@ -76,7 +93,8 @@ class PatientController extends Controller
     {
       $patient = Patient::find($id);
       $records = MedicalRecord::where('patient_id','=',$id)->get();
-      return view('/patient/show')->with('patient',$patient)->with('records',$records);
+      $acc_infos = DB::table('acc_infos')->where('patient_id','=',$id)->get();
+      return view('/patient/show')->with('patient',$patient)->with('records',$records)->with('acc_infos',$acc_infos);
     }
 
     /**
@@ -88,7 +106,8 @@ class PatientController extends Controller
     public function edit($id)
     {
         $patient = Patient::find($id);
-        return view('/patient/edit')->with('patient',$patient);
+        $acc_infos = DB::table('acc_infos')->where('patient_id','=',$id)->get();
+        return view('/patient/edit')->with('patient',$patient)->with('acc_infos',$acc_infos);
     }
 
     /**
@@ -111,11 +130,24 @@ class PatientController extends Controller
         'cell_phone' => $request->cell_phone,
         'DOB' => $DOB->format('Y-m-d'),
         'gender' => $request->gender,
-        'acc' => $request->acc,
-        'acc_number' => $request->acc_number,
+        //'acc' => $request->acc,
+        //'acc_number' => $request->acc_number,
         'address' => $request->address,
         'blood_type' => $request->blood_type
       ]);
+      //acc records cant be modified
+      /*
+      DB::table('acc_infos')->where('patient_id','=', $id)->delete();
+      */
+      $length = count($request->acc_number);
+      for($i=0 ; $i<$length ; $i++){
+        $acc_number = DB::table('acc_infos')->insert(array(
+          'patient_id' => $id,
+          'acc_number' => $request->acc_number[$i],
+          'parts'=> $request->acc_part[$i],
+        ));
+      }
+
       return redirect('/patient/'.$id)->with('message','Updated !');
     }
 
@@ -128,10 +160,11 @@ class PatientController extends Controller
     public function destroy($id)
     {
       $del = Patient::find($id);
-      $patient_type = $del->acc;
       $del->delete();
+      $if_acc = DB::table('acc_infos')->where('patient_id', '=', $id)->count();
+      DB::table('acc_infos')->where('patient_id', '=', $id)->delete();
 
-      if($patient_type == 1){
+      if($if_acc > 0){
         return redirect('/patient_index/acc')->with('message', 'Deleted!');
       }else{
         return redirect('/patient_index/nonacc')->with('message', 'Deleted!');

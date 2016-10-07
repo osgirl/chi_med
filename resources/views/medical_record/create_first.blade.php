@@ -84,9 +84,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-          <form class="form" action="{{ url('/medical_record/'.$record->id)}}" method="post" role="form">
+          <form class="form" action="{{ url('/medical_record')}}" method="post" role="form">
             {!! csrf_field() !!}
-            <input type="hidden" name="_method" value="put" />
             <div class="form-group">
               <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Main</a></li>
@@ -99,7 +98,8 @@
                     <tr class="warning">
                       <th>
                         {{ $patient->surname}} {{$patient->last_name}}
-                        <input type="hidden" name="patient_id" value="{{ $record->patient_id }}">
+                        <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                        <input type="hidden" name="acc_id" value="{{ $acc_id }}">
                       </th>
                       <th>
                         DOB : {{ date('d-m-Y', strtotime($patient->DOB))}}
@@ -108,12 +108,21 @@
                         No.
                       </th>
                       <td>
-                        <input class="form-control" type="number" min="0" step="1" name="treatment_number" value="{{ $record->treatment_number }}" required>
+                        <input class="form-control" type="number" min="0" step="1" name="treatment_number" value="{{ $treatment_number }}" required>
                       </td>
                       <td>Date</td>
                       <td>
                         <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
-                          <input class="span2 form-control" name="date" size="16" type="text" value="{{ date('d-m-Y', strtotime($record->date))}}" required>
+                          <input class="span2 form-control" name="date" size="16" type="text" value="{{ date('d-m-Y')}}" required>
+                          <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="warning">Injury Date</th>
+                      <td colspan="5">
+                        <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
+                          <input class="span2 form-control" name="injury_date" size="16" type="text" placeholder="dd-mm-yyyy" required>
                           <span class="add-on"><i class="icon-th"></i></span>
                         </div>
                       </td>
@@ -123,21 +132,21 @@
                     </tr>
                     <tr>
                       <td class="warning">Main Complaint / S</td>
-                      <td colspan="5"><input class="form-control" type="text" name="main_complaint" value="{{ $record->main_complaint}}"></td>
+                      <td colspan="5"><input class="form-control" type="text" name="main_complaint" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Current Condition and Accompanied Symptoms</td>
-                      <td colspan="5"><textarea class="form-control" rows="7" name="symptoms">{{ $record->symptoms}}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="symptoms"></textarea></td>
                     </tr>
                     <tr>
                       <td class="warning">General Question</td>
-                      <td colspan="5"><textarea class="form-control" rows="7" name="general_question">{{ $record->general_question }}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="general_question"></textarea></td>
                     </tr>
                     <tr>
                       <td class="warning">Current Physical Examinations
                         <button type="button" class="btn btn-default btn-block" onclick="PE_databind();">Add</button>
                       </td>
-                      <td colspan="5"><textarea class="form-control" rows="7" id="physical_examinations" name="physical_examinations">{{ $record->physical_examinations}}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" id="physical_examinations" name="physical_examinations"></textarea></td>
                     </tr>
                     <tr class="info">
                       <th colspan="6">Tongue:</th>
@@ -146,38 +155,38 @@
                       <td class="col-sm-1 warning">Tongue Texture</td>
                       <td colspan="2" class="col-sm-3">
                         <label class="radio-inline">
-                          <input type="radio" name="tongue_status" value="Moistening" @if($record->tongue_status == "Moistening") checked @endif>Moistening
+                          <input type="radio" name="tongue_status" value="Moistening">Moistening
                         </label>
                         <label class="radio-inline">
-                          <input type="radio" name="tongue_status" value="Dryness" @if($record->tongue_status == "Dryness") checked @endif>Dryness
+                          <input type="radio" name="tongue_status" value="Dryness">Dryness
                         </label>
                       </td>
                       <td class="col-sm-1 warning">Body Colour</td>
-                      <td colspan="2" class="col-sm-3"><input class="form-control" type="text" name="body_colour" value="{{ $record->body_colour}}"></td>
+                      <td colspan="2" class="col-sm-3"><input class="form-control" type="text" name="body_colour" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Shape</td>
-                      <td colspan="2"><input class="form-control" type="text" name="shape" value="{{ $record->shape}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="shape" value=""></td>
                       <td class="warning">Movement</td>
-                      <td colspan="2"><input class="form-control" type="text" name="movement" value="{{$record->movement}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="movement" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Proper of Coating</td>
-                      <td colspan="2"><input class="form-control" type="text" name="proper_of_coating" value="{{ $record->proper_of_coating}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="proper_of_coating" value=""></td>
                       <td class="warning">Coating Colour</td>
-                      <td colspan="2"><input class="form-control" type="text" name="coating_colour" value="{{ $record->coating_colour}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="coating_colour" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Pulses (Overall Speed)</td>
                       <td colspan="5">
                         <label class="radio-inline">
-                          <input type="radio" name="pulses" value="Slow" @if($record->pulses == "Slow") checked @endif>Slow
+                          <input type="radio" name="pulses" value="Slow">Slow
                         </label>
                         <label class="radio-inline">
-                          <input type="radio" name="pulses" value="Moderate" @if($record->pulses == "Moderate") checked @endif>Moderate
+                          <input type="radio" name="pulses" value="Moderate">Moderate
                         </label>
                         <label class="radio-inline">
-                          <input type="radio" name="pulses" value="Fast" @if($record->pulses == "Fast") checked @endif>Fast
+                          <input type="radio" name="pulses" value="Fast">Fast
                         </label>
                       </td>
                     </tr>
@@ -187,49 +196,49 @@
                     </tr>
                     <tr>
                       <td class="warning">Lung (qi)</td>
-                      <td colspan="2"><input class="form-control" type="text" name="lung_qi" value="{{ $record->lung_qi}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="lung_qi" value=""></td>
                       <td class="warning">Heart (blood)</td>
-                      <td colspan="2"><input class="form-control" type="text" name="heart_blood" value="{{ $record->heart_blood}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="heart_blood" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Spleen</td>
-                      <td colspan="2"><input class="form-control" type="text" name="spleen" value="{{ $record->spleen}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="spleen" value=""></td>
                       <td class="warning">Liver</td>
-                      <td colspan="2"><input class="form-control" type="text" name="liver" value="{{ $record->liver}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="liver" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Kidney (yang / qi)</td>
-                      <td colspan="2"><input class="form-control" type="text" name="kidney_yang" value="{{ $record->kidney_yang}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="kidney_yang" value=""></td>
                       <td class="warning">Kidney (yin)</td>
-                      <td colspan="2"><input class="form-control" type="text" name="kidney_yin" value="{{ $record->kidney_yin}}"></td>
+                      <td colspan="2"><input class="form-control" type="text" name="kidney_yin" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">TCM Disease</td>
-                      <td colspan="5"><input class="form-control" type="text" name="TCM_disease" value="{{ $record->TCM_disease}}"></td>
+                      <td colspan="5"><input class="form-control" type="text" name="TCM_disease" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">TCM Type / Pattern</td>
-                      <td colspan="5"><input class="form-control" type="text" name="TCM_type" value="{{ $record->TCM_type}}"></td>
+                      <td colspan="5"><input class="form-control" type="text" name="TCM_type" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Treatment Principle</td>
-                      <td colspan="5"><input class="form-control" type="text" name="treatment_principle" value="{{ $record->treatment_principle}}"></td>
+                      <td colspan="5"><input class="form-control" type="text" name="treatment_principle" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Acu-points & Techniques/s & Methods/s</td>
-                      <td colspan="5"><textarea class="form-control" rows="7" name="Acu_points">{{ $record->Acu_points}}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="Acu_points"></textarea></td>
                     </tr>
                     <tr>
                       <td class="warning">Explanation Of Treatment</td>
-                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_explanation">{{ $record->treatment_explanation}}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_explanation"></textarea></td>
                     </tr>
                     <tr>
                       <td class="warning">Cautions, Contraindications and Red Flag</td>
-                      <td colspan="5"><input class="form-control" type="text" name="cautions" value="{{ $record->cautions }}"></td>
+                      <td colspan="5"><input class="form-control" type="text" name="cautions" value=""></td>
                     </tr>
                     <tr>
                       <td class="warning">Post Treatment Advice</td>
-                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_adjustments">{{ $record->treatment_adjustments}}</textarea></td>
+                      <td colspan="5"><textarea class="form-control" rows="7" name="treatment_adjustments"></textarea></td>
                     </tr>
                   </table>
                   <input type="submit" class="btn btn-success" value="Submit">
@@ -243,7 +252,7 @@
                       <table class="table table-hover table-bordered table-condense">
                         @foreach($physical as $p)
                           <tr>
-                            <td class="col-sm-1"><input type="checkbox" onchange="select_physical(this);" value="{{ $p->id }}" @foreach($PE_records as $PE) @if($PE->physical_examination_id == $p->id) checked @endif @endforeach></td>
+                            <td class="col-sm-1"><input type="checkbox" onchange="select_physical(this);" value="{{ $p->id }}"></td>
                             <td class="col-sm-3">{{$p->position}}</td>
                           </tr>
                         @endforeach
@@ -254,28 +263,7 @@
                     </div>
                     <div class="col-sm-8">
                       <table class="table table-hover table-bordered table-condense" id="tbl_physical_examination">
-                        @if(count($PE_records)>0)
-                          @foreach( $PE_records as $PE)
-                          <tr id="{{$PE->physical_examination_id}}_1">
-                            <td colSpan="5" class="warning"><h4>{{ $PE->position }}</h4><input type="hidden" name="physical_examination_id[]" value="{{ $PE->physical_examination_id }}"></td>
-                          </tr>
-                          <tr id="{{$PE->physical_examination_id}}_2">
-                            <td class="col-sm-1"><strong>{{ $PE->side }}</strong></td>
-                            <td class="col-sm-2">
-                              <strong>{{ $PE->direction1 }}</strong> <strong>{{ $PE->direction1_max}}º</strong>
-                            </td>
-                            <td class="col-sm-1">
-                              <input type="text" class="form-control" name="direction1_value[]" value="{{ $PE->direction1_value}}">
-                            </td>
-                            <td class="col-sm-2">
-                              <strong>{{ $PE->direction2 }}</strong> <strong>{{ $PE->direction2_max}}º</strong>
-                            </td>
-                            <td class="col-sm-1">
-                              <input type="text" class="form-control" name="direction2_value[]" value="{{ $PE->direction2_value}}">
-                            </td>
-                          </tr>
-                          @endforeach
-                        @endif
+
                       </table>
                     </div>
                   </div>

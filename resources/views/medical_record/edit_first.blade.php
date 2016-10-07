@@ -119,6 +119,15 @@
                       </td>
                     </tr>
                     <tr>
+                      <th class="warning">Injury Date</th>
+                      <td colspan="5">
+                        <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
+                          <input class="span2 form-control" name="injury_date" size="16" type="text" placeholder="dd-mm-yyyy" value="{{ date('d-m-Y', strtotime($record->injury_date))}}" required>
+                          <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
                       <th class="info" colspan="6">Symptoms</th>
                     </tr>
                     <tr>

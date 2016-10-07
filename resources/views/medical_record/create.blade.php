@@ -99,15 +99,16 @@
                       <th>
                         {{ $patient->surname}} {{$patient->last_name}}
                         <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+                        <input type="hidden" name="acc_id" value="{{ $acc_id }}">
                       </th>
                       <th>
-                        DOB : {{ $patient->DOB }}
+                        DOB : {{ date('d-m-Y', strtotime($patient->DOB))}}
                       </th>
                       <th>
                         No.
                       </th>
                       <td>
-                        <input class="form-control" type="number" min="0" step="1" value="{{ $treatment_number }}">
+                        <input class="form-control" type="number" min="0" step="1" name="treatment_number" value="{{ $treatment_number }}" required>
                       </td>
                       <td>Date</td>
                       <td>
