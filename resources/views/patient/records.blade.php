@@ -3,11 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row">
-      <div class="col-sm-3">
-        <a href="{{ url('/home') }}" class="btn btn-warning btn-block">
-          <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-          Back
-        </a>
+      <div class="well well-sm col-sm-12">
+        <div class="col-sm-3">
+          <a href="{{ url('/home') }}" class="btn btn-warning btn-block">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            Back
+          </a>
+        </div>
       </div>
       <div class="col-sm-10 col-sm-offset-1">
         <div class="col-sm-12" align="center">

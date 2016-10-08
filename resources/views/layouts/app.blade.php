@@ -24,6 +24,35 @@
             margin-right: 6px;
         }
     </style>
+    <style media="print" type="text/css">
+    table, td, th {
+      border: 1px solid black;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th{
+        background-color: #E6E6E6 !important;
+        padding: 2px 2px 2px 2px;
+        text-align: center;
+    }
+    td {
+      height: 0px;
+      vertical-align: center;
+      padding: 2px 2px 2px 2px;
+      padding-left: 10px;
+    }
+    p {
+      font-size: 0.05pt;
+      font-family:'Times New Roman',Times,serif;
+    }
+    .warning{
+      background-color: #E6E6E6 !important;
+      text-align: center;
+    }
+    </style>
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-inverse navbar-static-top">

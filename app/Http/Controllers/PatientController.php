@@ -92,7 +92,7 @@ class PatientController extends Controller
     public function show($id)
     {
       $patient = Patient::find($id);
-      $records = MedicalRecord::where('patient_id','=',$id)->get();
+      $records = MedicalRecord::where('patient_id','=',$id)->orderBy('id','desc')->get();
       $acc_infos = DB::table('acc_infos')->where('patient_id','=',$id)->get();
       return view('/patient/show')->with('patient',$patient)->with('records',$records)->with('acc_infos',$acc_infos);
     }

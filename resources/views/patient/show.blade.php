@@ -3,28 +3,31 @@
 @section('content')
 <div class="container">
     <div class="row">
-      <div class="col-sm-3 col-sm-offset-1">
-        @if( count($acc_infos) > 0 )
-        <a href="{{ url('/patient_index/acc' ) }}" class="btn btn-warning btn-block">
-        @else
-        <a href="{{ url('/patient_index/nonacc' ) }}" class="btn btn-warning btn-block">
-        @endif
-          <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-          Back
-        </a>
+      <div class="well well-sm col-sm-12">
+        <div class="col-sm-3">
+          @if( count($acc_infos) > 0 )
+          <a href="{{ url('/patient_index/acc' ) }}" class="btn btn-warning btn-block">
+          @else
+          <a href="{{ url('/patient_index/nonacc' ) }}" class="btn btn-warning btn-block">
+          @endif
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            Back
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <a href="{{ url('patient/'.$patient->id.'/edit' ) }}" class="btn btn-info btn-block">
+            Edit Patient Informations
+          </a>
+        </div>
+        <div class="col-sm-3">
+          <form class="form-horizontal" action="{{ url('/patient/'.$patient->id)}}" method="post" role="form">
+          {!! csrf_field() !!}
+            <input type="hidden" name="_method" value="delete" />
+            <input type="submit" class="btn btn-danger btn-block" value="Delete Patient">
+          </form>
+        </div>
       </div>
-      <div class="col-sm-3">
-        <a href="{{ url('patient/'.$patient->id.'/edit' ) }}" class="btn btn-info btn-block">
-          Edit Patient Informations
-        </a>
-      </div>
-      <div class="col-sm-3">
-        <form class="form-horizontal" action="{{ url('/patient/'.$patient->id)}}" method="post" role="form">
-        {!! csrf_field() !!}
-          <input type="hidden" name="_method" value="delete" />
-          <input type="submit" class="btn btn-danger btn-block" value="Delete Patient">
-        </form>
-      </div>
+
       <div class="col-sm-10 col-sm-offset-1">
         @if(count($patient)>0)
         <div class="col-sm-12">
@@ -73,15 +76,17 @@
                         @if(count($records)>0)
                         <tr class="info">
                           <th></th>
-                          <th>Treatment Number</th>
-                          <th>Main Complaint</th>
-                          <th>Create Date</th>
+                          <th></th>
+                          <th class="col-sm-1">Treatment Number</th>
+                          <th class="col-sm-4">Main Complaint</th>
+                          <th class="col-sm-2">Create Date</th>
                           <th></th>
                         </tr>
                         @foreach($records as $key=>$r)
                           @if($r->acc_id == $acc->id)
                           <tr>
-                            <td><a class="btn btn-info btn-block" href="{{ url('/medical_record/'.$r->id.'/edit')}}">see more</a></td>
+                            <td><a class="btn btn-info btn-block" href="{{ url('/medical_record/'.$r->id.'/edit')}}">Details</a></td>
+                            <td><a class="btn btn-default btn-block" href="{{ url('/medical_record/'.$r->id)}}">Print</a></td>
                             <td>{{ $r->treatment_number}}</td>
                             <td>{{ $r->main_complaint}}</td>
                             <td>{{ date('d-m-Y', strtotime($r->date))}}</td>
@@ -128,15 +133,17 @@
                       @if(count($records)>0)
                       <tr class="info">
                         <th></th>
-                        <th>Treatment Number</th>
-                        <th>Main Complaint</th>
-                        <th>Create Date</th>
+                        <th></th>
+                        <th class="col-sm-1">Treatment Number</th>
+                        <th class="col-sm-4">Main Complaint</th>
+                        <th class="col-sm-2">Create Date</th>
                         <th></th>
                       </tr>
                       @foreach($records as $key=>$r)
                         @if($r->acc_id == 0)
                         <tr>
                           <td><a class="btn btn-info btn-block" href="{{ url('/medical_record/'.$r->id.'/edit')}}">see more</a></td>
+                          <td><a class="btn btn-default btn-block" href="{{ url('/medical_record/'.$r->id)}}">Print</a></td>
                           <td>{{ $r->treatment_number}}</td>
                           <td>{{ $r->main_complaint}}</td>
                           <td>{{ date('d-m-Y', strtotime($r->date))}}</td>

@@ -119,7 +119,15 @@ class MedicalRecordController extends Controller
      */
     public function show($id)
     {
-        //
+        $record = MedicalRecord::join('patients','medical_records.patient_id','=','patients.id')
+            ->select('medical_records.*','patients.surname','patients.last_name','patients.DOB')
+            ->where('medical_records.id','=',$id)
+            ->first();
+        if($record->treatment_number == 1){
+          return view('/medical_record/print_first')->with('record',$record);
+        }else{
+          return view('/medical_record/print')->with('record',$record);
+        }
     }
     /**
      * Show the form for editing the specified resource.
@@ -152,10 +160,8 @@ class MedicalRecordController extends Controller
     public function update(Request $request, $id)
     {
       if($request->treatment_number == 1){
-        if(isset($request->injury_date)){
-          $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
-          $injury_date = $inj_date->format('Y-m-d');
-        }
+        $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
+        $injury_date = $inj_date->format('Y-m-d');
       }else{
         $injury_date = null;
       }

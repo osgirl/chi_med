@@ -40,7 +40,7 @@ function delRow(btn) {
 </script>
 <div class="container">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="well well-sm col-sm-12">
         <div class="col-sm-3">
           <a href="{{ url('home') }}" class="btn btn-warning btn-block">
             <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>

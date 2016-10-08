@@ -41,7 +41,7 @@ function delRow(btn) {
 <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <div class="col-sm-12">
+        <div class="col-sm-12 well well-sm">
           <div class="col-sm-3">
             <a href="{{ url('patient/'.$patient->id ) }}" class="btn btn-warning btn-block">
               <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
@@ -115,7 +115,7 @@ function delRow(btn) {
                     {{ $acc->parts }}
                   </td>
                   <td>
-                    
+
                   </td>
                 </tr>
                 @endforeach

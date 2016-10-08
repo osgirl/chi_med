@@ -83,6 +83,14 @@
 </script>
 <div class="container">
     <div class="row">
+      <div class="well well-sm col-sm-12">
+        <div class="col-sm-3">
+          <a href="{{ url('/patient/'.$record->patient_id)}}" class="btn btn-warning btn-block">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            Back
+          </a>
+        </div>
+      </div>
         <div class="col-md-10 col-md-offset-1">
           <form class="form" action="{{ url('/medical_record/'.$record->id)}}" method="post" role="form">
             {!! csrf_field() !!}
