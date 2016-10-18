@@ -15,7 +15,7 @@
         </div>
       </div>
         <div class="col-md-10 col-md-offset-1">
-          <table border="1">
+          <table border="1"  width="100%">
             <tr class="warning">
               <th width="125px">
                 <p>

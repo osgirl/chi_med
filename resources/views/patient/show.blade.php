@@ -23,7 +23,7 @@
           <form class="form-horizontal" action="{{ url('/patient/'.$patient->id)}}" method="post" role="form">
           {!! csrf_field() !!}
             <input type="hidden" name="_method" value="delete" />
-            <input type="submit" class="btn btn-danger btn-block" value="Delete Patient">
+            <input type="button" onclick="deleteBtn(this);" class="btn btn-danger btn-block" value="Delete Patient">
           </form>
         </div>
       </div>

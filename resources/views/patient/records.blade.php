@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<script type="text/javascript">
+function searchPatient(){
+  var id = document.getElementById('select_patient_code').value;
+  window.location = "{{ url('/patient') }}/"+id;
+
+}
+</script>
 <div class="container">
     <div class="row">
       <div class="well well-sm col-sm-12">
@@ -18,6 +25,20 @@
           @elseif($type == "nonacc")
           <h3>Non-ACC Patients</h3>
           @endif
+        </div>
+        <div class="col-sm-12 well well-sm">
+          <div class="col-sm-6 col-sm-offset-3">
+            <div class="col-sm-8">
+              <select class="form-control" id="select_patient_code">
+                @foreach($records as $r)
+                <option value="{{$r->id}}">{{ $r->patient_code }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-block btn-primary" name="button" onclick="searchPatient();">Search</button>
+            </div>
+          </div>
         </div>
           @if(count($records)>0)
           <table class="table table-bordered table-condensed table-hover">
@@ -46,4 +67,5 @@
       </div>
     </div>
 </div>
+
 @endsection

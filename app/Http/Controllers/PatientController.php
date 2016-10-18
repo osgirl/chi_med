@@ -33,9 +33,9 @@ class PatientController extends Controller
       }
 
       if($type == "acc"){
-        $records = Patient::whereIn('id',$id)->orderBy('id')->get();
+        $records = Patient::whereIn('id',$id)->orderBy('patient_code')->get();
       }elseif($type == "nonacc"){
-        $records = Patient::whereNotIn('id',$id)->orderBy('id')->get();
+        $records = Patient::whereNotIn('id',$id)->orderBy('patient_code')->get();
       }
       return view('/patient/records')->with('records',$records)->with('type',$type);
     }
@@ -47,8 +47,8 @@ class PatientController extends Controller
      */
     public function create()
     {
-      return view('/patient/create');
-
+      $patient = Patient::select('patient_code')->distinct()->get();
+      return view('/patient/create')->with('patient',$patient);
     }
 
     /**

@@ -75,7 +75,12 @@ class MedicalReviewController extends Controller
      */
     public function show($id)
     {
-        echo "show";
+      $record = DB::table('medical_reviews')->join('patients','medical_reviews.patient_id','=','patients.id')
+          ->select('medical_reviews.*','patients.surname','patients.last_name','patients.DOB','patients.gender')
+          ->where('medical_reviews.id','=',$id)
+          ->first();
+
+      return view('/medical_record/print_review')->with('record',$record);
     }
 
     /**
@@ -86,7 +91,15 @@ class MedicalReviewController extends Controller
      */
     public function edit($id)
     {
-        echo "edit";
+      $patient = DB::table('medical_reviews')->join('patients','patients.id','=','medical_reviews.patient_id')
+        ->select('medical_reviews.id','patients.id as patient_id','patients.surname','patients.last_name','patients.DOB','patients.gender')
+        ->where('medical_reviews.id','=',$id)->first();
+      $records = DB::table('medical_reviews')->find($id);
+
+      $previous_info = MedicalRecord::where('acc_id','=',$records->acc_id)
+        ->whereBetween('treatment_number',[$records->treatment_number-5,$records->treatment_number])->get();
+      return view('/medical_record/edit_review')->with('patient',$patient)
+        ->with('records',$records)->with('previous_info',$previous_info);
     }
 
     /**
@@ -98,7 +111,18 @@ class MedicalReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::table('medical_reviews')->where('id', $id)
+            ->update([
+              'summary' => $request->summary,
+              'investigation' => $request->investigation,
+              'outcomes' => $request->outcomes,
+              'differential_diagnosis' => $request->differential_diagnosis,
+              'treatment' => $request->treatment,
+              'discussion' => $request->discussion,
+              'create_date' => date("Y-m-d H:i:s")
+            ]);
+
+        return redirect('/patient/'.$request->patient_id);
     }
 
     /**

@@ -2,24 +2,6 @@
 
 @section('content')
 <script type="text/javascript">
-/*
-function change(input){
-  var label = input.parentNode;
-  var name = input.getAttribute("name");
-  var acc_number = document.getElementById('acc_number');
-  if(input.checked){
-    label.style.backgroundColor = '#DCEDC8';
-    label.innerHTML = '<input type="checkbox" name="' + name + '" autocomplete="off" onchange="change(this);" value="1" checked> Yes';
-    acc_number.disabled = false;
-  }else{
-    label.style.backgroundColor = '#F8BBD0';
-    label.innerHTML = '<input type="hidden" name="' + name + '" value="0">';
-    label.innerHTML += '<input type="checkbox" autocomplete="off" name="' + name + '" onchange="change(this);"> No';
-    acc_number.value = "";
-    acc_number.disabled = true;
-  }
-}
-*/
 function addRow() {
   var table = document.getElementById("tblACC");
   var num = document.getElementById("tblACC").rows.length;
@@ -36,6 +18,42 @@ function addRow() {
 function delRow(btn) {
   var row = btn.parentNode.parentNode;
   row.parentNode.removeChild(row);
+}
+function checkCode(){
+  var codes = [
+    @foreach($patient as $p)
+    "{{ $p->patient_code }}",
+    @endforeach
+  ];
+  var input = document.getElementById("patient_code").value;
+  if(codes.includes(input)){
+    swal({
+      title:"Warning",
+      text: "Code has been used !",
+      type: "warning",
+    },function(){
+      document.getElementById("patient_code").focus();
+    });
+  }
+}
+function checkForm(button){
+  var codes = [
+    @foreach($patient as $p)
+    "{{ $p->patient_code }}",
+    @endforeach
+  ];
+  var input = document.getElementById("patient_code").value;
+  if(codes.includes(input)){
+    swal({
+      title:"Warning",
+      text: "Code has been used !",
+      type: "warning",
+    },function(){
+      document.getElementById("patient_code").focus();
+    });
+  }else{
+    button.form.submit();
+  }
 }
 </script>
 <div class="container">
@@ -62,7 +80,7 @@ function delRow(btn) {
                 <td class="warning col-sm-1">Last Name</td>
                 <td class="col-sm-2"><input class="form-control" type="text" name="last_name" value="" required></td>
                 <td class="warning col-sm-1">Patient Code</td>
-                <td class="col-sm-2"><input class="form-control" type="text" name="patient_code" value="" required></td>
+                <td class="col-sm-2"><input class="form-control" type="text" onchange="checkCode();" id="patient_code" name="patient_code" value="" required></td>
                 <td class="col-sm-1 warning">Gender</td>
                 <td class="col-sm-2">
                   <select name="gender" class="form-control">
@@ -85,24 +103,6 @@ function delRow(btn) {
                 <td><input class="form-control" type="text" name="blood_type" value=""></td>
               </tr>
               <tr>
-
-              <!--
-                <td class="warning">ACC Number</td>
-                <td><input class="form-control" id="acc_number" type="text" name="acc_number" value=""></td>
-              -->
-
-              </tr>
-              <tr>
-              <!--
-                <td class="warning">ACC</td>
-                <td>
-                  <div class="col-sm-12">
-                    <label class="btn btn-block" style="background-color:#DCEDC8;">
-                      <input type="checkbox" autocomplete="off" name="acc" value="1" onchange="change(this);" checked> YES
-                    </label>
-                  </div>
-                </td>
-              -->
                 <td class="warning">Address</td>
                 <td colspan="7">
                   <input class="form-control" type="text" name="address" value="">
@@ -125,7 +125,9 @@ function delRow(btn) {
             <button type="button"v class="btn btn-primary" name="button" onclick="addRow();">Add Acc</button>
           </div>
           <div class="col-sm-12">
-            <input type="submit" class="btn btn-success btn-block" value="Save">
+            <div class="col-sm-4">
+              <input type="button" onclick="checkForm(this);" class="btn btn-success btn-block" value="Save">
+            </div>
           </div>
         </form>
     </div>
