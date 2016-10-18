@@ -19,13 +19,19 @@ Route::auth();
 
 Route::group(['middleware' => ['web','auth']], function () {
 
+  Route::resource('/user', 'UserController');
+
+  Route::resource('/physical', 'PhysicalExaminationController');
+
   Route::get('/home', 'HomeController@index');
 
   //Route::get('/test', 'HomeController@test');
 
-  Route::resource('/physical', 'PhysicalExaminationController');
-
   Route::resource('/medical_record', 'MedicalRecordController');
+
+  Route::resource('/medical_review', 'MedicalReviewController');
+
+  Route::get('/medical_review_create/{record_id}', 'MedicalReviewController@index');
 
   Route::resource('/patient', 'PatientController');
 

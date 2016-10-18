@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="col-sm-10 col-sm-offset-1">
+      <div class="col-sm-12">
         @if(count($patient)>0)
         <div class="col-sm-12">
           <table class="table table-hover">
@@ -84,6 +84,35 @@
                         </tr>
                         @foreach($records as $key=>$r)
                           @if($r->acc_id == $acc->id)
+                          <!--for each 6 inputs-->
+                            @if($r->treatment_number % 6 == 0)
+                              {{--*/ $count = 0 /*--}}
+                              @foreach($reviews as $review)
+                                @if($review->acc_id == $acc->id && $review->treatment_number == $r->treatment_number)
+                                <tr class="warning">
+                                  <td><a class="btn btn-info btn-block" href="{{ url('/medical_review/'.$review->id.'/edit')}}">Details</a></td>
+                                  <td><a class="btn btn-default btn-block" href="{{ url('/medical_review/'.$review->id)}}">Print</a></td>
+                                  <td colspan="2" align="center"><strong>Review Form</strong></td>
+                                  <td>{{ date('d-m-Y', strtotime($review->create_date))}}</td>
+                                  <td>
+                                    <form class="form-horizontal" action="{{ url('/medical_review/'.$review->id)}}" method="post" role="form">
+                                    {!! csrf_field() !!}
+                                      <input type="hidden" name="_method" value="delete" />
+                                      <input type="button" onclick="deleteBtn(this);" class="btn btn-danger btn-block" value="Delete">
+                                    </form>
+                                  </td>
+                                </tr>
+                                {{--*/ $count++ /*--}}
+                                @endif
+                              @endforeach
+                              @if($count == 0)
+                              <tr>
+                                <td colspan="6">
+                                  <a href="{{ url('/medical_review_create/'.$r->id) }}" type="button" class="btn btn-warning btn-block">Create Review Form</a>
+                                </td>
+                              </tr>
+                              @endif
+                            @endif
                           <tr>
                             <td><a class="btn btn-info btn-block" href="{{ url('/medical_record/'.$r->id.'/edit')}}">Details</a></td>
                             <td><a class="btn btn-default btn-block" href="{{ url('/medical_record/'.$r->id)}}">Print</a></td>
@@ -94,7 +123,7 @@
                               <form class="form-horizontal" action="{{ url('/medical_record/'.$r->id)}}" method="post" role="form">
                               {!! csrf_field() !!}
                                 <input type="hidden" name="_method" value="delete" />
-                                <input type="submit" class="btn btn-danger btn-block" value="Delete">
+                                <input type="button" onclick="deleteBtn(this);" class="btn btn-danger btn-block" value="Delete">
                               </form>
                             </td>
                           </tr>
@@ -141,6 +170,34 @@
                       </tr>
                       @foreach($records as $key=>$r)
                         @if($r->acc_id == 0)
+                          @if($r->treatment_number % 6 == 0)
+                            {{--*/ $count = 0 /*--}}
+                            @foreach($reviews as $review)
+                              @if($review->acc_id == 0 && $review->treatment_number == $r->treatment_number)
+                              <tr class="warning">
+                                <td><a class="btn btn-info btn-block" href="{{ url('/medical_review/'.$review->id.'/edit')}}">Details</a></td>
+                                <td><a class="btn btn-default btn-block" href="{{ url('/medical_review/'.$review->id)}}">Print</a></td>
+                                <td colspan="2" align="center"><strong>Review Form</strong></td>
+                                <td>{{ date('d-m-Y', strtotime($review->create_date))}}</td>
+                                <td>
+                                  <form class="form-horizontal" action="{{ url('/medical_review/'.$review->id)}}" method="post" role="form">
+                                  {!! csrf_field() !!}
+                                    <input type="hidden" name="_method" value="delete" />
+                                    <input type="button" onclick="deleteBtn(this);" class="btn btn-danger btn-block" value="Delete">
+                                  </form>
+                                </td>
+                              </tr>
+                              {{--*/ $count++ /*--}}
+                              @endif
+                            @endforeach
+                            @if($count == 0)
+                            <tr>
+                              <td colspan="6">
+                                <a href="{{ url('/medical_review_create/'.$r->id) }}" type="button" class="btn btn-warning btn-block">Create Review Form</a>
+                              </td>
+                            </tr>
+                            @endif
+                          @endif
                         <tr>
                           <td><a class="btn btn-info btn-block" href="{{ url('/medical_record/'.$r->id.'/edit')}}">see more</a></td>
                           <td><a class="btn btn-default btn-block" href="{{ url('/medical_record/'.$r->id)}}">Print</a></td>
@@ -151,7 +208,7 @@
                             <form class="form-horizontal" action="{{ url('/medical_record/'.$r->id)}}" method="post" role="form">
                             {!! csrf_field() !!}
                               <input type="hidden" name="_method" value="delete" />
-                              <input type="submit" class="btn btn-danger btn-block" value="Delete">
+                              <input type="button" onclick="deleteBtn(this);" class="btn btn-danger btn-block" value="Delete">
                             </form>
                           </td>
                         </tr>

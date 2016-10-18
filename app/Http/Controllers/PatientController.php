@@ -17,6 +17,12 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct()
+     {
+         $this->middleware('permission:user');
+     }
+
     public function index($type)
     {
       //get the array to check if the acc_infos table contains the patient
@@ -93,8 +99,11 @@ class PatientController extends Controller
     {
       $patient = Patient::find($id);
       $records = MedicalRecord::where('patient_id','=',$id)->orderBy('id','desc')->get();
+
+      $reviews = DB::table('medical_reviews')->where('patient_id','=',$id)->get();
       $acc_infos = DB::table('acc_infos')->where('patient_id','=',$id)->get();
-      return view('/patient/show')->with('patient',$patient)->with('records',$records)->with('acc_infos',$acc_infos);
+      return view('/patient/show')->with('patient',$patient)->with('records',$records)
+          ->with('reviews',$reviews)->with('acc_infos',$acc_infos);
     }
 
     /**

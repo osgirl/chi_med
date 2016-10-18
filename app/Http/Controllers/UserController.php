@@ -5,24 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\PhysicalExamination;
+use App\User;
 
-class PhysicalExaminationController extends Controller
+class UserController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('permission:admin');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-     public function __construct()
-     {
-         $this->middleware('permission:admin');
-     }
-
     public function index()
     {
-        $records = PhysicalExamination::get();
-        return view('/physical/index')->with('records',$records);
+      $user = User::get();
+      return view('user/index')->with('user',$user);
     }
 
     /**
@@ -43,19 +43,18 @@ class PhysicalExaminationController extends Controller
      */
     public function store(Request $request)
     {
-      $customer = PhysicalExamination::create(
-      array(
-      'position' => $request->position,
-      'side' => $request->side,
-      'direction1' => $request->direction1,
-      'direction1_max' => $request->direction1_max,
-      'direction2' => $request->direction2,
-      'direction2_max' => $request->direction2_max
-      ));
+      $length = count($request->id);
+      for($i=0 ; $i<$length ; $i++){
+        $user = User::find($request->id[$i]);
+        $user->update([
+              'admin' => $request->admin[$i],
+              'user' => $request->user[$i]
+            ]);
+      }
 
-      return redirect('/physical')->with('message', 'Created!');
+      $user = User::get();
+      return view('user/index')->with('user',$user);
     }
-
     /**
      * Display the specified resource.
      *
@@ -87,18 +86,7 @@ class PhysicalExaminationController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $physical = PhysicalExamination::find($id);
-      $physical->update([
-        'position' => $request->position,
-        'side' => $request->side,
-        'direction1' => $request->direction1,
-        'direction1_max' => $request->direction1_max,
-        'direction2' => $request->direction2,
-        'direction2_max' => $request->direction2_max
-      ]);
-
-      return redirect('/physical')->with('message','Updated !');
-
+        //
     }
 
     /**
@@ -109,9 +97,7 @@ class PhysicalExaminationController extends Controller
      */
     public function destroy($id)
     {
-      $physical = PhysicalExamination::find($id);
-      $physical->delete();
-
-      return redirect('/physical')->with('message','Deleted !');
+      User::where('id', '=', $id)->delete();
+      return redirect('/user');
     }
 }

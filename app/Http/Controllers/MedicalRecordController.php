@@ -19,6 +19,11 @@ class MedicalRecordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+       $this->middleware('permission:user');
+    }
+
     public function index()
     {
         //
@@ -109,6 +114,13 @@ class MedicalRecordController extends Controller
         ));
       }
       return redirect('/patient/'.$request->patient_id);
+      //return to review form on every 6 inserts of record
+      /*if($request->treatment_number % 6 == 0){
+        $patient = Patient::select('surname','last_name','DOB','gender')->where('id','=',$request->patient_id)->first();
+        return view('/medical_record/create_review')->with('patient',$patient);
+      }else{
+
+      }*/
     }
 
     /**

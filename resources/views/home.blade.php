@@ -3,8 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-          <div class="col-sm-12">
+        <div class="col-sm-12">
+          @if($user->admin == true)
+          <div class="col-sm-3">
+            <a href="{{{ url('/user') }}}" type="button" class="btn btn-block btn-warning">Permission Setup</a>
+            <a href="{{{ url('/physical') }}}" type="button" class="btn btn-block btn-warning">Physical Setup</a>
+          </div>
+          @endif
+          <div class="col-sm-9">
             <div class="col-sm-4">
               <a href="{{ url('/patient/create') }}" class="thumbnail">
                 <h4>New Patient</h4>
