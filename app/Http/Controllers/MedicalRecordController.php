@@ -61,12 +61,6 @@ class MedicalRecordController extends Controller
      */
     public function store(Request $request)
     {
-      if($request->treatment_number == 1){
-        $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
-        $injury_date = $inj_date->format('Y-m-d');
-      }else{
-        $injury_date = null;
-      }
       $cre_date = DateTime::createFromFormat('d-m-Y', $request->date);
       $date = $cre_date->format('Y-m-d');
       //find the max treatment number
@@ -77,7 +71,6 @@ class MedicalRecordController extends Controller
         'acc_id' => $request->acc_id,
         'treatment_number' => $request->treatment_number,
         'date' => $date,
-        'injury_date' => $injury_date,
         'main_complaint' => $request->main_complaint,
         'symptoms' => $request->symptoms,
         'general_question' => $request->general_question,
@@ -103,7 +96,9 @@ class MedicalRecordController extends Controller
         'cautions' => $request->cautions,
         'treatment_adjustments' => $request->treatment_adjustments
       ));
+
       $record_id = MedicalRecord::select('id')->orderBy('id','desc')->first();
+
       $length = count($request->physical_examination_id);
       for($i=0 ; $i<$length ; $i++){
         $PE = PE_Record::create(array(
@@ -113,6 +108,34 @@ class MedicalRecordController extends Controller
           'direction2_value' => $request->direction2_value[$i]
         ));
       }
+
+      if($request->treatment_number == 1){
+        $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
+        $injury_date = $inj_date->format('Y-m-d');
+        DB::table('medical_firsts')->insert([
+          'patient_id' => $request->patient_id,
+          'medical_record_id' => $record_id->id,
+          'injury_date' => $injury_date,
+          'family_history' => $request->family_history,
+          'infectious_disease' => $request->infectious_disease,
+          'asthma' => $request->asthma,
+          'cancer' => $request->cancer,
+          'abnormal_blood_pressure' => $request->abnormal_blood_pressure,
+          'heart_condition' => $request->heart_condition,
+          'diabetes' => $request->diabetes,
+          'mental_health_conditions' => $request->mental_health_conditions,
+          'bleeding_disorders' => $request->bleeding_disorders,
+          'epilepsy' => $request->epilepsy,
+          'thyroid_diseases' => $request->thyroid_diseases,
+          'surgery' => $request->surgery,
+          'fractures' => $request->fractures,
+          'taking_prescribed_medicine' => $request->taking_prescribed_medicine,
+          'regularly_take_supplement' => $request->regularly_take_supplement,
+          'full_details' => $request->full_details,
+          'menstruation' => $request->menstruation
+        ]);
+      }
+
       return redirect('/patient/'.$request->patient_id);
       //return to review form on every 6 inserts of record
       /*if($request->treatment_number % 6 == 0){
@@ -131,13 +154,19 @@ class MedicalRecordController extends Controller
      */
     public function show($id)
     {
-        $record = MedicalRecord::join('patients','medical_records.patient_id','=','patients.id')
-            ->select('medical_records.*','patients.surname','patients.last_name','patients.DOB')
-            ->where('medical_records.id','=',$id)
-            ->first();
+        $record = MedicalRecord::find($id);
         if($record->treatment_number == 1){
+          $record = MedicalRecord::join('patients','medical_records.patient_id','=','patients.id')
+              ->join('medical_firsts','medical_firsts.medical_record_id','=','medical_records.id')
+              ->select('medical_records.*','medical_firsts.*','patients.surname','patients.last_name','patients.DOB')
+              ->where('medical_records.id','=',$id)
+              ->first();
           return view('/medical_record/print_first')->with('record',$record);
         }else{
+          $record = MedicalRecord::join('patients','medical_records.patient_id','=','patients.id')
+              ->select('medical_records.*','patients.surname','patients.last_name','patients.DOB')
+              ->where('medical_records.id','=',$id)
+              ->first();
           return view('/medical_record/print')->with('record',$record);
         }
     }
@@ -149,14 +178,25 @@ class MedicalRecordController extends Controller
      */
     public function edit($id)
     {
-        $physical = PhysicalExamination::get();
         $record = MedicalRecord::find($id);
-        $patient = Patient::select('surname','last_name','DOB')->where('id','=',$record->patient_id)->first();
-        $PE_records = PE_Record::join('physical_examinations', 'p_e__records.physical_examination_id', '=', 'physical_examinations.id')->where('medical_record_id','=',$id)->get();
         if($record->treatment_number == 1){
+          $physical = PhysicalExamination::get();
+          $record = MedicalRecord::join('patients','medical_records.patient_id','=','patients.id')
+              ->join('medical_firsts','medical_firsts.medical_record_id','=','medical_records.id')
+              ->select('medical_records.id as record_id','medical_records.*','medical_firsts.*','patients.surname','patients.last_name','patients.DOB')
+              ->where('medical_records.id','=',$id)
+              ->first();
+          $patient = Patient::select('surname','last_name','DOB')->where('id','=',$record->patient_id)->first();
+          $PE_records = PE_Record::join('physical_examinations', 'p_e__records.physical_examination_id', '=', 'physical_examinations.id')->where('medical_record_id','=',$id)->get();
+
           return view('/medical_record/edit_first')->with('record',$record)->with('PE_records',$PE_records)
                 ->with('physical',$physical)->with('patient',$patient);
         }else{
+          $physical = PhysicalExamination::get();
+          $record = MedicalRecord::find($id);
+          $patient = Patient::select('surname','last_name','DOB')->where('id','=',$record->patient_id)->first();
+          $PE_records = PE_Record::join('physical_examinations', 'p_e__records.physical_examination_id', '=', 'physical_examinations.id')->where('medical_record_id','=',$id)->get();
+
           return view('/medical_record/edit')->with('record',$record)->with('PE_records',$PE_records)
                 ->with('physical',$physical)->with('patient',$patient);
         }
@@ -171,12 +211,6 @@ class MedicalRecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-      if($request->treatment_number == 1){
-        $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
-        $injury_date = $inj_date->format('Y-m-d');
-      }else{
-        $injury_date = null;
-      }
       $cre_date = DateTime::createFromFormat('d-m-Y', $request->date);
       $date = $cre_date->format('Y-m-d');
 
@@ -184,7 +218,6 @@ class MedicalRecordController extends Controller
       $MedicalRecords->update([
         'patient_id' => $request->patient_id,
         'treatment_number' => $request->treatment_number,
-        'injury_date' => $injury_date,
         'main_complaint' => $request->main_complaint,
         'symptoms' => $request->symptoms,
         'general_question' => $request->general_question,
@@ -225,6 +258,33 @@ class MedicalRecordController extends Controller
           'direction2_value' => $request->direction2_value[$i]
         ));
       }
+
+      if($request->treatment_number == 1){
+        $inj_date = DateTime::createFromFormat('d-m-Y', $request->injury_date);
+        $injury_date = $inj_date->format('Y-m-d');
+        DB::table('medical_firsts')->where('medical_record_id', $id)
+          ->update([
+          'injury_date' => $injury_date,
+          'family_history' => $request->family_history,
+          'infectious_disease' => $request->infectious_disease,
+          'asthma' => $request->asthma,
+          'cancer' => $request->cancer,
+          'abnormal_blood_pressure' => $request->abnormal_blood_pressure,
+          'heart_condition' => $request->heart_condition,
+          'diabetes' => $request->diabetes,
+          'mental_health_conditions' => $request->mental_health_conditions,
+          'bleeding_disorders' => $request->bleeding_disorders,
+          'epilepsy' => $request->epilepsy,
+          'thyroid_diseases' => $request->thyroid_diseases,
+          'surgery' => $request->surgery,
+          'fractures' => $request->fractures,
+          'taking_prescribed_medicine' => $request->taking_prescribed_medicine,
+          'regularly_take_supplement' => $request->regularly_take_supplement,
+          'full_details' => $request->full_details,
+          'menstruation' => $request->menstruation
+        ]);
+      }
+
       return redirect('/patient/'.$request->patient_id);
 
     }
@@ -238,6 +298,9 @@ class MedicalRecordController extends Controller
     public function destroy($id)
     {
       $del = MedicalRecord::find($id);
+      if($del->treatment_number == 1){
+        DB::table('medical_firsts')->where('medical_record_id', '=', $id)->delete();
+      }
       $patient_id = $del->patient_id;
       $del_PE = PE_Record::where('medical_record_id','=',$id)->delete();
       $del->delete();

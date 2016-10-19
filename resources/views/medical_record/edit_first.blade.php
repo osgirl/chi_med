@@ -92,7 +92,7 @@
         </div>
       </div>
         <div class="col-md-10 col-md-offset-1">
-          <form class="form" action="{{ url('/medical_record/'.$record->id)}}" method="post" role="form">
+          <form class="form" action="{{ url('/medical_record/'.$record->record_id)}}" method="post" role="form">
             {!! csrf_field() !!}
             <input type="hidden" name="_method" value="put" />
             <div class="form-group">
@@ -151,10 +151,115 @@
                       <td colspan="5"><textarea class="form-control" rows="7" name="general_question">{{ $record->general_question }}</textarea></td>
                     </tr>
                     <tr>
+                      <td class="warning">Past History</td>
+                      <td colspan="5">
+                        <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <label>
+                              <input type="checkbox" name="infectious_disease" value="1" @if($record->infectious_disease) checked @endif> -Infectious disease (TB, HIV, Hepatitis)
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="asthma" value="1" @if($record->asthma) checked @endif> -Asthma
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="cancer" value="1" @if($record->cancer) checked @endif> -Cancer
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <label>
+                              <input type="checkbox" name="abnormal_blood_pressure" value="1" @if($record->abnormal_blood_pressure) checked @endif> -Abnormal blood pressure
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="heart_condition" value="1" @if($record->heart_condition) checked @endif> -Heart condition
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="diabetes" value="1" @if($record->diabetes) checked @endif> -Diabetes
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <label>
+                              <input type="checkbox" name="mental_health_conditions" value="1" @if($record->mental_health_conditions) checked @endif> -Mental health conditions
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="bleeding_disorders" value="1" @if($record->bleeding_disorders) checked @endif> -Bleeding disorders
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="epilepsy" value="1" @if($record->epilepsy) checked @endif> -Epilepsy
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <label>
+                              <input type="checkbox" name="thyroid_diseases" value="1" @if($record->thyroid_diseases) checked @endif> -Thyroid diseases
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="surgery" value="1" @if($record->surgery) checked @endif> -Surgery
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="fractures" value="1" @if($record->fractures) checked @endif> -Fractures
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-12">
+                            <label>
+                              <input type="checkbox" name="taking_prescribed_medicine" value="1" @if($record->taking_prescribed_medicine) checked @endif> -Are you taking any prescribed medicine? (Antibiotics, Anticoagulants, Antidepressants)
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-12">
+                            <label>
+                              <input type="checkbox" name="regularly_take_supplement" value="1" @if($record->regularly_take_supplement) checked @endif> -Do you regularly take aspirin, Painkillers, Herbs, Vitamins or supplements?
+                            </label>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="warning">If yes to any of the above, please give the full details</td>
+                      <td colspan="5">
+                        <textarea class="form-control" rows="7" name="full_details">{{ $record->full_details}}</textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="warning">Mentruation, marital & obstetrical history</td>
+                      <td colspan="5">
+                        <textarea class="form-control" rows="7" name="menstruation">{{ $record->menstruation}}</textarea>
+                      </td>
+                    </tr>
+                    <tr>
                       <td class="warning">Current Physical Examinations
                         <button type="button" class="btn btn-default btn-block" onclick="PE_databind();">Add</button>
                       </td>
                       <td colspan="5"><textarea class="form-control" rows="7" id="physical_examinations" name="physical_examinations">{{ $record->physical_examinations}}</textarea></td>
+                    </tr>
+                    <tr>
+                      <td class="warning">Family History</td>
+                      <td colspan="5">
+                        <textarea class="form-control" rows="7" name="family_history">{{ $record->family_history}}</textarea>
+                      </td>
                     </tr>
                     <tr class="info">
                       <th colspan="6">Tongue:</th>

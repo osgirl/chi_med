@@ -151,10 +151,115 @@
                       <td colspan="5"><textarea class="form-control" rows="7" name="general_question"></textarea></td>
                     </tr>
                     <tr>
+                      <td class="warning">Past History</td>
+                      <td colspan="5">
+                        <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <label>
+                              <input type="checkbox" name="infectious_disease" value="1"> -Infectious disease (TB, HIV, Hepatitis)
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="asthma" value="1"> -Asthma
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="cancer" value="1"> -Cancer
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <label>
+                              <input type="checkbox" name="abnormal_blood_pressure" value="1"> -Abnormal blood pressure
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="heart_condition" value="1"> -Heart condition
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="diabetes" value="1"> -Diabetes
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <label>
+                              <input type="checkbox" name="mental_health_conditions" value="1"> -Mental health conditions
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="bleeding_disorders" value="1"> -Bleeding disorders
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="epilepsy" value="1"> -Epilepsy
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-6">
+                            <label>
+                              <input type="checkbox" name="thyroid_diseases" value="1"> -Thyroid diseases
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="surgery" value="1"> -Surgery
+                            </label>
+                          </div>
+                          <div class="col-sm-3">
+                            <label>
+                              <input type="checkbox" name="fractures" value="1"> -Fractures
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-12">
+                            <label>
+                              <input type="checkbox" name="taking_prescribed_medicine" value="1"> -Are you taking any prescribed medicine? (Antibiotics, Anticoagulants, Antidepressants)
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="col-sm-12">
+                            <label>
+                              <input type="checkbox" name="regularly_take_supplement" value="1"> -Do you regularly take aspirin, Painkillers, Herbs, Vitamins or supplements?
+                            </label>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="warning">If yes to any of the above, please give the full details</td>
+                      <td colspan="5">
+                        <textarea class="form-control" rows="7" name="full_details"></textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="warning">Mentruation, marital & obstetrical history</td>
+                      <td colspan="5">
+                        <textarea class="form-control" rows="7" name="menstruation"></textarea>
+                      </td>
+                    </tr>
+                    <tr>
                       <td class="warning">Current Physical Examinations
                         <button type="button" class="btn btn-default btn-block" onclick="PE_databind();">Add</button>
                       </td>
                       <td colspan="5"><textarea class="form-control" rows="7" id="physical_examinations" name="physical_examinations"></textarea></td>
+                    </tr>
+                    <tr>
+                      <td class="warning">Family History</td>
+                      <td colspan="5">
+                        <textarea class="form-control" rows="7" name="family_history"></textarea>
+                      </td>
                     </tr>
                     <tr class="info">
                       <th colspan="6">Tongue:</th>

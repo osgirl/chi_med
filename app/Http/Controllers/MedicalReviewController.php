@@ -98,6 +98,7 @@ class MedicalReviewController extends Controller
 
       $previous_info = MedicalRecord::where('acc_id','=',$records->acc_id)
         ->whereBetween('treatment_number',[$records->treatment_number-5,$records->treatment_number])->get();
+
       return view('/medical_record/edit_review')->with('patient',$patient)
         ->with('records',$records)->with('previous_info',$previous_info);
     }
