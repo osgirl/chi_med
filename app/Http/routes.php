@@ -31,6 +31,8 @@ Route::group(['middleware' => ['web','auth']], function () {
 
   Route::resource('/medical_review', 'MedicalReviewController');
 
+  Route::get('/acc/finish/{acc_id}', 'AccController@finish');
+
   Route::get('/medical_review_create/{record_id}', 'MedicalReviewController@index');
 
   Route::resource('/patient', 'PatientController');

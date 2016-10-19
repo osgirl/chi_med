@@ -150,6 +150,16 @@
         button.form.submit();
       });
     }
+    function warningBtn(link){
+      swal({
+        title:"Warning !",
+        text: "Are you sure ?",
+        type: "warning",
+        showCancelButton: true,
+      },function(){
+        window.location.href = link;
+      });
+    }
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>

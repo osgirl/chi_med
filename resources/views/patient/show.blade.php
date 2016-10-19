@@ -55,7 +55,7 @@
         <div class="col-sm-12">
           <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           @foreach($acc_infos as $key=>$acc)
-            <div class="panel panel-info">
+            <div class="panel @if($acc->finish) panel-info @else panel-primary @endif">
               <div class="panel-heading" role="tab">
                 <h4 class="panel-title">
                   <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ $acc->acc_number}}" aria-expanded="@if($key==0) true @else false @endif" aria-controls="{{ $acc->acc_number}}">
@@ -67,9 +67,12 @@
                 <div class="panel-body">
                   <div class="col-sm-12">
                     <div class="col-sm-3">
+                      @if(!$acc->finish)
                       <a href="{{ url('/medical_record/create/'.$patient->id.'/'.$acc->id ) }}" class="thumbnail">
                         <img src="{{ url('/img/add.png') }}" alt="...">
                       </a>
+                      @endif
+                      <a onclick="warningBtn('{{ url("/acc/finish/".$acc->id)}}');" class="btn btn-warning btn-block" @if($acc->finish) disabled @endif> Finish </a>
                     </div>
                     <div class="col-sm-9">
                       <table class="table table-bordered table-condensed table-hover">
@@ -141,7 +144,7 @@
               </div>
             </div>
           @endforeach
-          <div class="panel panel-info">
+          <div class="panel panel-primary">
             <div class="panel-heading" role="tab">
               <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#nonacc" aria-expanded="@if(count($acc_infos) == 0) true @else false @endif" aria-controls="nonacc">
