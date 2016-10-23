@@ -3,96 +3,125 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <form class="form-horizontal" action="{{ url('/physical')}}" method="post" role="form">
+        <div class="col-sm-10 col-sm-offset-1">
+          <div class="col-sm-6">
+            <form class="form-horizontal" action="{{ url('/physical/major')}}" method="post" role="form">
               {!! csrf_field() !!}
               <div class="form-group">
-                <table class="table table-condensed table-hover">
-                  <tr>
-                    <td>Position</td>
-                    <td>Side</td>
-                    <td>Direction1</td>
-                    <td>Max</td>
-                    <td>Direction2</td>
-                    <td>Max</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input class="form-control" type="text" name="position">
-                    </td>
-                    <td>
-                      <input class="form-control" type="text" name="side">
-                    </td>
-                    <td>
-                      <input class="form-control" type="text" name="direction1">
-                    </td>
-                    <td>
-                      <input class="form-control" type="number" min="0" step="0.01" name="direction1_max">
-                    </td>
-                    <td>
-                      <input class="form-control" type="text" name="direction2">
-                    </td>
-                    <td>
-                      <input class="form-control" type="number" min="0" step="0.01" name="direction2_max">
-                    </td>
-                    <td>
-                      <input type="submit" class="btn btn-success" name="name" value="Add New">
-                    </td>
-                  </tr>
-                </table>
+                <div class="col-sm-12">
+                  <label for="">Add Major Parts :</label>
+                </div>
+                <div class="col-sm-9">
+                  <input class="form-control" type="text" name="part" required>
+                </div>
+                <div class="col-sm-3">
+                  <input type="submit" class="btn btn-success btn-block" value="Add">
+                </div>
               </div>
             </form>
-            <table class="table table-condensed table-hover">
-              <tr>
-                <td class="col-sm-1"></td>
-                <td class="col-sm-2">Position</td>
-                <td class="col-sm-2">Side</td>
-                <td class="col-sm-2">Direction1</td>
-                <td class="col-sm-2">Max</td>
-                <td class="col-sm-2">Direction2</td>
-                <td class="col-sm-2">Max</td>
-                <td colspan="2" class="col-sm-1"></td>
-              </tr>
-              @if(count($records) > 0)
-                @foreach($records as $key => $r)
-                <tr>
-                  <form class="form-horizontal" action="{{ url('/physical/'.$r->id)}}" method="post" role="form">
-                  {!! csrf_field() !!}
-                    <input type="hidden" name="_method" value="put" />
-                    <td>{{ $key+1 }}.</td>
-                    <td>
-                      <input class="form-control" type="text" value="{{ $r->position }}" name="position">
-                    </td>
-                    <td>
-                      <input class="form-control" type="text" value="{{ $r->side }}" name="side">
-                    </td>
-                    <td>
-                      <input class="form-control" type="text" value="{{ $r->direction1 }}" name="direction1">
-                    </td>
-                    <td>
-                      <input class="form-control" type="number" min="0" step="0.01" value="{{ $r->direction1_max }}" name="direction1_max">
-                    </td>
-                    <td>
-                      <input class="form-control" type="text" value="{{ $r->direction2 }}" name="direction2">
-                    </td>
-                    <td>
-                      <input class="form-control" type="number" min="0" step="0.01" value="{{ $r->direction2_max }}" name="direction2_max">
-                    </td>
-                    <td>
-                      <input type="submit" class="btn btn-success btn-block" value="Update">
-                    </td>
+          </div>
+          @if(count($majors)>0)
+          <div class="col-sm-12">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            @foreach($majors as $key => $major)
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="heading{{$major->part}}">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$major->part}}" aria-expanded="@if($key==0) true @else false @endif" aria-controls="collapse_{{$major->part}}">
+                    {{ $major->part }}
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse_{{$major->part}}" class="panel-collapse collapse @if($key==0) in @endif" role="tabpanel" aria-labelledby="heading{{$major->part}}">
+                <div class="panel-body">
+                  <form action="{{ url('physical/minor/'.$major->id) }}" method="post" enctype="multipart/form-data">
+                    {!! csrf_field() !!}
+                    <div class="col-sm-12">
+                      <div class="col-sm-4">
+                        <label for="">Add Descrption :</label>
+                      </div>
+                      <div class="col-sm-3">
+                        <label for="">Add Img :</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" name="description" required>
+                    </div>
+                    <div class="col-sm-3">
+                      <input type="file" name="fileToUpload" id="fileToUpload">
+                    </div>
+                    <div class="col-sm-2">
+                      <input type="submit" class="btn btn-block btn-success" value="Add">
+                    </div>
                   </form>
-                  <td>
-                    <form class="form-horizontal" action="{{ url('/physical/'.$r->id)}}" method="post" role="form">
-                      {!! csrf_field() !!}
-                      <input type="hidden" name="_method" value="delete" />
-                      <input type="submit" class="btn btn-danger btn-block" value="Delete">
-                    </form>
-                  </td>
-                </tr>
-                @endforeach
-              @endif
-            </table>
+                  <div class="col-sm-3" align="right">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <form class="form-horizontal" action="{{url('/physical/major/delete/'.$major->id)}}" method="post" role="form">
+                          {!! csrf_field() !!}
+                            <input type="button" onclick="deleteBtn(this);" class="btn btn-danger btn-block" value="Delete Major Part">
+                          </form>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!--show description parts-->
+                  <div class="col-sm-12" style="padding-top:20px;">
+                    @if(count($minors)>0)
+                    <table class="table table-hover table-condensed ">
+                      <tr>
+                        <td class="col-sm-3">Description</td>
+                        <td class="col-sm-3">Image</td>
+                        <td class="col-sm-3">Change Image</td>
+                        <td class="col-sm-3"></td>
+                      </tr>
+                      @foreach($minors as $minor)
+                        @if($minor->major_id == $major->id)
+                        <form action="{{ url('physical/minor/update/'.$minor->id) }}" method="post" enctype="multipart/form-data">
+                          {!! csrf_field() !!}
+                          <input type="hidden" name="major_id" value="{{ $major->id }}">
+                          <tr>
+                            <td><input type="text" class="form-control" name="description" value="{{$minor->description}}" required></td>
+                            <td><img src="{{$minor->img_url}}" alt="{{$minor->description}}" class="img-thumbnail"></td>
+                            <td>
+                              <input type="file" name="fileToUpload" id="fileToUpload">
+                            </td>
+                            <td>
+                              <div class="btn-group">
+                                <input type="submit" class="btn btn-success" value="Update">
+                              </form>
+                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <span class="caret"></span>
+                                  <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li>
+                                    <form class="form-horizontal" action="{{url('/physical/minor/delete/'.$minor->id)}}" method="post" role="form">
+                                    {!! csrf_field() !!}
+                                      <input type="button" onclick="deleteBtn(this);" class="btn btn-danger btn-block" value="Delete">
+                                    </form>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+                        @endif
+                      @endforeach
+                    </table>
+                    @endif
+                  </div>
+                </div>
+              </div>
+            </div>
+            @endforeach
+            </div>
+          </div>
+          @endif
         </div>
     </div>
 </div>

@@ -21,7 +21,17 @@ Route::group(['middleware' => ['web','auth']], function () {
 
   Route::resource('/user', 'UserController');
 
-  Route::resource('/physical', 'PhysicalExaminationController');
+  Route::get('/physical', 'PEController@index');
+
+  Route::post('/physical/major', 'PEController@addMajor');
+
+  Route::post('/physical/major/delete/{id}', 'PEController@deleteMajor');
+
+  Route::post('/physical/minor/{major_id}', 'PEController@addMinor');
+
+  Route::post('/physical/minor/update/{minor_id}', 'PEController@updateMinor');
+
+  Route::post('/physical/minor/delete/{minor_id}', 'PEController@deleteMinor');
 
   Route::get('/home', 'HomeController@index');
 

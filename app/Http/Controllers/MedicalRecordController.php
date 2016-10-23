@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Patient;
 use App\MedicalRecord;
-use App\PhysicalExamination;
 use App\PE_Record;
 use Datetime;
 use DB;
@@ -37,17 +36,18 @@ class MedicalRecordController extends Controller
     public function create($patient, $acc)
     {
         $patient = Patient::find($patient);
-        $physical = PhysicalExamination::get();
+        $pe_majors = DB::table('pe_majors')->get();
+        $pe_minors = DB::table('pe_minors')->get();
         $treatment_number = MedicalRecord::where('patient_id','=',$patient->id)
             ->where('acc_id' , '=' , $acc)
             ->max('treatment_number') +1 ;
         if($treatment_number == 1){
           return view('medical_record/create_first')
-          ->with('patient',$patient)->with('physical',$physical)
+          ->with('patient',$patient)->with('pe_majors',$pe_majors)->with('pe_minors',$pe_minors)
           ->with('treatment_number',$treatment_number)->with('acc_id',$acc);
         }else{
           return view('medical_record/create')
-          ->with('patient',$patient)->with('physical',$physical)
+          ->with('patient',$patient)->with('pe_majors',$pe_majors)->with('pe_minors',$pe_minors)
           ->with('treatment_number',$treatment_number)->with('acc_id',$acc);
         }
 
@@ -99,14 +99,13 @@ class MedicalRecordController extends Controller
 
       $record_id = MedicalRecord::select('id')->orderBy('id','desc')->first();
 
-      $length = count($request->physical_examination_id);
+      $length = count($request->minor_id);
       for($i=0 ; $i<$length ; $i++){
-        $PE = PE_Record::create(array(
+        DB::table('pe_records')->insert([
           'medical_record_id' => $record_id->id,
-          'physical_examination_id' => $request->physical_examination_id[$i],
-          'direction1_value' => $request->direction1_value[$i],
-          'direction2_value' => $request->direction2_value[$i]
-        ));
+          'pe_minor_id' => $request->minor_id[$i],
+          'value' => $request->value[$i]
+        ]);
       }
 
       if($request->treatment_number == 1){
@@ -179,26 +178,30 @@ class MedicalRecordController extends Controller
     public function edit($id)
     {
         $record = MedicalRecord::find($id);
+        $pe_majors = DB::table('pe_majors')->get();
+        $pe_minors = DB::table('pe_minors')->get();
+        $pe_records = DB::table('pe_records')->where('medical_record_id','=',$id)->get();
+
         if($record->treatment_number == 1){
-          $physical = PhysicalExamination::get();
+          //$physical = PhysicalExamination::get();
           $record = MedicalRecord::join('patients','medical_records.patient_id','=','patients.id')
               ->join('medical_firsts','medical_firsts.medical_record_id','=','medical_records.id')
               ->select('medical_records.id as record_id','medical_records.*','medical_firsts.*','patients.surname','patients.last_name','patients.DOB')
               ->where('medical_records.id','=',$id)
               ->first();
           $patient = Patient::select('surname','last_name','DOB')->where('id','=',$record->patient_id)->first();
-          $PE_records = PE_Record::join('physical_examinations', 'p_e__records.physical_examination_id', '=', 'physical_examinations.id')->where('medical_record_id','=',$id)->get();
 
-          return view('/medical_record/edit_first')->with('record',$record)->with('PE_records',$PE_records)
-                ->with('physical',$physical)->with('patient',$patient);
+          return view('/medical_record/edit_first')->with('record',$record)
+                  ->with('pe_majors',$pe_majors)->with('pe_minors',$pe_minors)->with('pe_records',$pe_records)
+                  ->with('patient',$patient);
         }else{
-          $physical = PhysicalExamination::get();
+          //$physical = PhysicalExamination::get();
           $record = MedicalRecord::find($id);
           $patient = Patient::select('surname','last_name','DOB')->where('id','=',$record->patient_id)->first();
-          $PE_records = PE_Record::join('physical_examinations', 'p_e__records.physical_examination_id', '=', 'physical_examinations.id')->where('medical_record_id','=',$id)->get();
 
-          return view('/medical_record/edit')->with('record',$record)->with('PE_records',$PE_records)
-                ->with('physical',$physical)->with('patient',$patient);
+          return view('/medical_record/edit')->with('record',$record)
+                ->with('pe_majors',$pe_majors)->with('pe_minors',$pe_minors)->with('pe_records',$pe_records)
+                ->with('patient',$patient);
         }
     }
 
@@ -246,17 +249,17 @@ class MedicalRecordController extends Controller
         'date' => $date
       ]);
 
-      $del_pe = PE_Record::where('medical_record_id','=',$id);
-      $del_pe->delete();
 
-      $length = count($request->physical_examination_id);
+      $del_pe = DB::table('pe_records')->where('medical_record_id','=',$id)->delete();
+
+      $length = count($request->minor_id);
       for($i=0 ; $i<$length ; $i++){
-        $PE = PE_Record::create(array(
-          'medical_record_id' => $id,
-          'physical_examination_id' => $request->physical_examination_id[$i],
-          'direction1_value' => $request->direction1_value[$i],
-          'direction2_value' => $request->direction2_value[$i]
-        ));
+          DB::table('pe_records')->insert([
+            'medical_record_id' => $id,
+            'pe_minor_id' => $request->minor_id[$i],
+            'value' => $request->value[$i]
+          ]);
+
       }
 
       if($request->treatment_number == 1){
@@ -302,8 +305,7 @@ class MedicalRecordController extends Controller
         DB::table('medical_firsts')->where('medical_record_id', '=', $id)->delete();
       }
       $patient_id = $del->patient_id;
-      $del_PE = PE_Record::where('medical_record_id','=',$id)->delete();
-      $del->delete();
+      $del_pe = DB::table('pe_records')->where('medical_record_id','=',$id)->delete();
 
       return redirect('/patient/'.$patient_id)->with('message', 'Deleted!');
     }

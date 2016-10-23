@@ -3,82 +3,32 @@
 @section('content')
 <!--physical examination page-->
 <script type="text/javascript">
-  function select_physical(input){
+  function change(input ,row_id){
+    var label = input.parentNode;
+    var row = input.parentNode.parentNode.parentNode.cells;
     if(input.checked){
-      var table = document.getElementById('tbl_physical_examination');
-      var num = document.getElementById("tbl_physical_examination").rows.length;
-      var row1 = table.insertRow(num);
-      var cell1 = row1.insertCell(0);
-      var row2 = table.insertRow(num+1);
-      var cell2 = row2.insertCell(0);
-      var cell3 = row2.insertCell(1);
-      var cell4 = row2.insertCell(2);
-      var cell5 = row2.insertCell(3);
-      var cell6 = row2.insertCell(4);
-      @if(count($physical)>0)
-        @foreach($physical as $p)
-        if(input.value == "{{ $p->id }}"){
-          row1.id = "{{ $p->id }}_1";
-          row2.id = "{{ $p->id }}_2";
-          cell1.colSpan = "5";
-          cell1.classList.add("warning");
-          cell1.innerHTML = '<h4>{{ $p->position }}</h4>';
-          cell1.innerHTML += '<input type="hidden" name="physical_examination_id[]" value="{{ $p->id }}">';
-
-          cell2.innerHTML += '<strong>{{ $p->side }}</strong>';
-          cell2.classList.add("col-sm-1");
-          cell3.innerHTML = '<strong>{{ $p->direction1 }}</strong> <strong>{{ $p->direction1_max}}º</strong>';
-          cell3.classList.add("col-sm-2");
-          cell4.innerHTML = '<input type="text" class="form-control" name="direction1_value[]">';
-          cell4.classList.add("col-sm-1");
-          cell5.innerHTML = '<strong>{{ $p->direction2 }}</strong> <strong>{{ $p->direction2_max}}º</strong>';
-          cell5.classList.add("col-sm-2");
-          cell6.innerHTML = '<input type="text" class="form-control" name="direction2_value[]">';
-          cell6.classList.add("col-sm-1");
-
-        }
-        @endforeach
-      @endif
+      label.style.backgroundColor = '#DCEDC8';
+      label.innerHTML = '<input type="checkbox" autocomplete="off" onchange="change(this ,'+row_id+');" checked> Yes';
+      row[3].innerHTML ="<input type='text' class='form-control' name='value[]' value=''>";
+      row[3].innerHTML +="<input type='hidden' name='minor_id[]' value='"+row_id+"'>";
     }else{
-      @if(count($physical)>0)
-        @foreach($physical as $p)
-        if(input.value == "{{ $p->id }}"){
-          document.getElementById("{{ $p->id }}_1").remove();
-          document.getElementById("{{ $p->id }}_2").remove();
-        }
-        @endforeach
-      @endif
+      label.style.backgroundColor = '#F8BBD0';
+      label.innerHTML = '<input type="checkbox" autocomplete="off" onchange="change(this,'+row_id+');"> No';
+      row[3].innerHTML ="<input type='text' class='form-control' disabled>";
     }
   }
 
   function PE_databind(){
-    var table = document.getElementById('tbl_physical_examination');
-    var textarea = document.getElementById('physical_examinations');
     var text = "";
-    var num = document.getElementById("tbl_physical_examination").rows.length;
-
-    for (var i = 0, row; row = table.rows[i]; i++) {
-       //iterate through rows
-       //rows would be accessed using the "row" variable assigned in the for loop
-       for (var j = 0, col; col = row.cells[j]; j++) {
-         //iterate through columns
-         //columns would be accessed using the "col" variable assigned in the for loop
-         if(i%2 == 0){
-           if(i!=0){
-             text += "\n";
-           }
-           text += col.children[0].innerHTML+ "  ";
-         }else{
-           if(j==2||j==4){
-             text += col.children[0].value + "º   ";
-           }else{
-             text += col.children[0].innerHTML + " : ";
-           }
-         }
-
-       }
+    for (var i = 0; i< {{count($pe_minors)}}; i++) {
+      var row = document.getElementById('row_'+i).cells;
+      var inputs = row[3].childNodes[0];
+      var description = row[2].childNodes[0].innerHTML;
+      if (typeof inputs.value != "undefined" && inputs.value != null && !inputs.disabled){
+        text += description + " : " + inputs.value + "\r\n";
+      }
     }
-    textarea.innerHTML = text;
+    document.getElementById('physical_examinations').innerHTML = text;
   }
 </script>
 <div class="container">
@@ -246,24 +196,50 @@
 
                 <div role="tabpanel" class="tab-pane fade" id="physical">
                   <div class="col-sm-12">
-                    <div class="col-sm-4">
-                      @if(count($physical)>0)
-                      <table class="table table-hover table-bordered table-condense">
-                        @foreach($physical as $p)
-                          <tr>
-                            <td class="col-sm-1"><input type="checkbox" onchange="select_physical(this);" value="{{ $p->id }}"></td>
-                            <td class="col-sm-3">{{$p->position}}</td>
-                          </tr>
-                        @endforeach
-                      </table>
-                      @else
-                      <h3>Not set yet !</h3>
-                      @endif
-                    </div>
-                    <div class="col-sm-8">
-                      <table class="table table-hover table-bordered table-condense" id="tbl_physical_examination">
-
-                      </table>
+                    <div class="col-sm-12">
+                      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        @if(count($pe_majors)>0)
+                          @foreach($pe_majors as $key => $p)
+                          <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading_{{$p->id}}">
+                              <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$p->id}}" aria-expanded="@if($key==0) true @else false @endif" aria-controls="collapse_{{$p->id}}">
+                                  {{ $p->part }}
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapse_{{$p->id}}" class="panel-collapse collapse @if($key==0) in @endif" role="tabpanel" aria-labelledby="heading_{{$p->id}}">
+                              <div class="panel-body">
+                                @if(count($pe_minors)>0)
+                                <table class="table table-hover table-bordered table-condense">
+                                  @foreach($pe_minors as $key_m => $minor)
+                                    @if($minor->major_id == $p->id)
+                                    <tr id="row_{{$key_m}}">
+                                      <td class="col-sm-3">
+                                        <img src="../../../{{$minor->img_url}}" alt="{{$minor->description}}" class="img-thumbnail">
+                                      </td>
+                                      <td class="col-sm-3">
+                                        <label class="btn btn-block" style="background-color:#F8BBD0;">
+                                          <input type="checkbox" autocomplete="off" onchange="change(this, {{$minor->id}});"> No
+                                        </label>
+                                      </td>
+                                      <td class="col-sm-3"><h4>{{ $p->part }} {{ $minor->description }}</h4></td>
+                                      <td>
+                                        <input type="text" class="form-control" disabled>
+                                      </td>
+                                    </tr>
+                                    @endif
+                                  @endforeach
+                                </table>
+                                @endif
+                              </div>
+                            </div>
+                          </div>
+                          @endforeach
+                        @else
+                        <h3>Not set yet !</h3>
+                        @endif
+                      </div>
                     </div>
                   </div>
                 </div>
