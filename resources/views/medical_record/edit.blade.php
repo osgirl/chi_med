@@ -219,7 +219,7 @@
                                         @if( $pe_record->pe_minor_id == $minor->id)
                                         <tr id="row_{{$key_minor}}">
                                           <td class="col-sm-3">
-                                            <img src="../../../../{{$minor->img_url}}" alt="{{$minor->description}}" class="img-thumbnail">
+                                            <img src="../../{{$minor->img_url}}" alt="{{$minor->description}}" class="img-thumbnail">
                                           </td>
                                           <td class="col-sm-3">
                                             <label class="btn btn-block" style="background-color:#DCEDC8;">
@@ -238,7 +238,7 @@
                                       @if($count == 0)
                                       <tr id="row_{{$key_minor}}">
                                         <td class="col-sm-3">
-                                          <img src="../../../../{{$minor->img_url}}" alt="{{$minor->description}}" class="img-thumbnail">
+                                          <img src="../../{{$minor->img_url}}" alt="{{$minor->description}}" class="img-thumbnail">
                                         </td>
                                         <td class="col-sm-3">
                                           <label class="btn btn-block" style="background-color:#F8BBD0;">
