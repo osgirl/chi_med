@@ -45,9 +45,8 @@
       vertical-align: center;
       padding: 2px 2px 2px 2px;
       padding-left: 10px;
-    }
-    p {
       font-size: 0.05pt;
+      font-family:serif;
     }
     .warning{
       background-color: #E6E6E6 !important;
