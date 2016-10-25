@@ -39,6 +39,8 @@
         background-color: #E6E6E6 !important;
         padding: 2px 2px 2px 2px;
         text-align: center;
+        font-size: 0.05pt;
+        font-family:'Times New Roman',Times,serif;
     }
     td {
       vertical-align: center;
