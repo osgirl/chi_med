@@ -104,28 +104,38 @@
               </td>
             </tr>
             <tr>
-              <td class="warning">Past History</td>
+              <td class="warning">
+                <p>
+                  Past History
+                </p>
+              </td>
               <td colspan="5">
                 <div class="col-sm-12">
-                  @if($record->infectious_disease) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Infectious disease (TB, HIV, Hepatitis)<br> @endif 
-                  @if($record->asthma) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Asthma<br> @endif
-                  @if($record->cancer) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Cancer<br> @endif
-                  @if($record->abnormal_blood_pressure) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Abnormal blood pressure<br> @endif
-                  @if($record->heart_condition) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Heart condition<br> @endif
-                  @if($record->diabetes) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Diabetes<br> @endif
-                  @if($record->mental_health_conditions) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Mental health conditions<br> @endif
-                  @if($record->bleeding_disorders) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Bleeding disorders<br> @endif
-                  @if($record->epilepsy) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Epilepsy<br> @endif
-                  @if($record->thyroid_diseases) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Thyroid diseases<br> @endif
-                  @if($record->surgery) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Surgery<br> @endif
-                  @if($record->fractures) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Fractures<br> @endif
-                  @if($record->taking_prescribed_medicine) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Are you taking any prescribed medicine? (Antibiotics, Anticoagulants, Antidepressants)<br> @endif
-                  @if($record->regularly_take_supplement) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Do you regularly take aspirin, Painkillers, Herbs, Vitamins or supplements?<br> @endif
+                  <p>
+                    @if($record->infectious_disease) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Infectious disease (TB, HIV, Hepatitis)<br> @endif
+                    @if($record->asthma) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Asthma<br> @endif
+                    @if($record->cancer) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Cancer<br> @endif
+                    @if($record->abnormal_blood_pressure) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Abnormal blood pressure<br> @endif
+                    @if($record->heart_condition) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Heart condition<br> @endif
+                    @if($record->diabetes) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Diabetes<br> @endif
+                    @if($record->mental_health_conditions) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Mental health conditions<br> @endif
+                    @if($record->bleeding_disorders) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Bleeding disorders<br> @endif
+                    @if($record->epilepsy) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Epilepsy<br> @endif
+                    @if($record->thyroid_diseases) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Thyroid diseases<br> @endif
+                    @if($record->surgery) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Surgery<br> @endif
+                    @if($record->fractures) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Fractures<br> @endif
+                    @if($record->taking_prescribed_medicine) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Are you taking any prescribed medicine? (Antibiotics, Anticoagulants, Antidepressants)<br> @endif
+                    @if($record->regularly_take_supplement) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Do you regularly take aspirin, Painkillers, Herbs, Vitamins or supplements?<br> @endif
+                  </p>
                 </div>
               </td>
             </tr>
             <tr>
-              <td class="warning">If yes to any of the above, please give the full details</td>
+              <td class="warning">
+                <p>
+                  If yes to any of the above, please give the full details
+                </p>
+              </td>
               <td colspan="5">
                 <p>
                   {{ $record->full_details}}
@@ -133,7 +143,11 @@
               </td>
             </tr>
             <tr>
-              <td class="warning">Mentruation, marital & obstetrical history</td>
+              <td class="warning">
+                <p>
+                  Mentruation, marital & obstetrical history
+                </p>
+              </td>
               <td colspan="5">
                 <p>
                   {{ $record->menstruation}}
@@ -153,7 +167,11 @@
               </td>
             </tr>
             <tr>
-              <td class="warning">Family History</td>
+              <td class="warning">
+                <p>
+                  Family History
+                </p>
+              </td>
               <td colspan="5">
                 <p>
                   {{ $record->family_history}}
