@@ -48,7 +48,7 @@
     }
     p {
       font-size: 0.05pt;
-      font-family:Arial,'Helvetica Neue',Helvetica,sans-serif;
+      font-family:'Times New Roman',Times,serif;
     }
     .warning{
       background-color: #E6E6E6 !important;
