@@ -48,10 +48,13 @@ class PEController extends Controller
       if (!file_exists('img/PE')) {
         mkdir('img/PE', 0777, true);
       }
-      $img = Image::make($_FILES['fileToUpload']['tmp_name']);
-      $destinationPath = 'img/PE/'.$_FILES['fileToUpload']['name'];
-      // save image
-      $img->save($destinationPath);
+      $destinationPath = "";
+      if(isset($request->fileToUpload)){
+        $img = Image::make($_FILES['fileToUpload']['tmp_name']);
+        $destinationPath = 'img/PE/'.$_FILES['fileToUpload']['name'];
+        // save image
+        $img->save($destinationPath);
+      }
       DB::table('pe_minors')->insert(
         [
           'major_id' => $major_id,
@@ -69,10 +72,13 @@ class PEController extends Controller
       File::delete($file->img_url);
       DB::table('pe_minors')->where('id', '=', $id)->delete();
 
-      $img = Image::make($_FILES['fileToUpload']['tmp_name']);
-      $destinationPath = 'img/PE/'.$_FILES['fileToUpload']['name'];
-      // save image
-      $img->save($destinationPath);
+      $destinationPath = "";
+      if(isset($request->fileToUpload)){
+        $img = Image::make($_FILES['fileToUpload']['tmp_name']);
+        $destinationPath = 'img/PE/'.$_FILES['fileToUpload']['name'];
+        // save image
+        $img->save($destinationPath);
+      }
       DB::table('pe_minors')->insert(
         [
           'major_id' => $request->major_id,

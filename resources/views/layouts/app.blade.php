@@ -68,7 +68,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Medical Records
+                    Recomed
                 </a>
             </div>
 
