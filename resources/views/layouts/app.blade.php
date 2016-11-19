@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>MedicalRecords</title>
+    <title>Recomed</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -16,6 +16,10 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <!--Animated CSS-->
+    <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+    <!--Flipclock-->
+    <link rel="stylesheet" href="{{ asset('css/flipclock.css') }}">
 
     <style>
         body {
@@ -160,8 +164,32 @@
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <!--Flipclock-->
+    <script src="{{asset('js/flipclock.min.js')}}"></script>
+    <script type="text/javascript">
+      var clock;
+      $(document).ready(function() {
+				var date = new Date();
+				clock = $('.clock').FlipClock(date, {
+          clockFace: 'TwentyFourHourClock'
+				});
+			});
+    </script>
     <script type="text/javascript">
       $('select').select2();
+    </script>
+    <script type="text/javascript">
+      var d = new Date();
+      var weekday = new Array(7);
+      weekday[0]=  "Sunday";
+      weekday[1] = "Monday";
+      weekday[2] = "Tuesday";
+      weekday[3] = "Wednesday";
+      weekday[4] = "Thursday";
+      weekday[5] = "Friday";
+      weekday[6] = "Saturday";
+      document.getElementById('weekday_now').innerHTML = weekday[d.getDay()];
+      document.getElementById('date_now').innerHTML = d.getDate()+"-"+d.getMonth(d.setMonth(d.getMonth()+1))+"-"+d.getFullYear();
     </script>
 </body>
 </html>
