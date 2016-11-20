@@ -27,36 +27,58 @@
         body {
             font-family: 'Lato';
         }
-
+        th{
+            text-align: center;
+        }
         .fa-btn {
             margin-right: 6px;
         }
-    </style>
-    <style media="print" type="text/css">
-    table, td, th {
-      border: 1px solid black;
-    }
+        page {
+          background: white;
+          display: block;
+          margin: 0 auto;
+          margin-bottom: 0.5cm;
+          box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+          padding: 30px 30px 30px 30px;
+        }
+        page[size="A4"] {
+          width: 21cm;
+          height: 29.7cm;
+        }
+        page[size="A4"][layout="portrait"] {
+          width: 29.7cm;
+          height: 21cm;
+        }
+        @media print {
+          body, page {
+            margin: 0;
+            box-shadow: 0;
+          }
+          table, td, th {
+            border: 1px solid black;
+          }
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    th{
-        background-color: #E6E6E6 !important;
-        padding: 2px 2px 2px 2px;
-        text-align: center;
-        font-family:'Times New Roman',Times,serif;
-    }
-    td {
-      vertical-align: center;
-      padding: 2px 2px 2px 2px;
-      padding-left: 10px;
-      font-family:'Times New Roman',Times,serif;
-    }
-    .warning{
-      background-color: #E6E6E6 !important;
-      text-align: center;
-    }
+          table {
+            border-collapse: collapse;
+            width: 100%;
+          }
+          th{
+              background-color: #E6E6E6 !important;
+              padding: 2px 2px 2px 2px;
+              text-align: center;
+              font-family:'Times New Roman',Times,serif;
+          }
+          td {
+            vertical-align: center;
+            padding: 2px 2px 2px 2px;
+            padding-left: 10px;
+            font-family:'Times New Roman',Times,serif;
+          }
+          .warning{
+            background-color: #E6E6E6 !important;
+            text-align: center;
+          }
+        }
     </style>
 </head>
 <body id="app-layout">
