@@ -33,6 +33,9 @@
         }
     </style>
     <style media="print" type="text/css">
+    div {
+      font-size: 14px;
+    }
     table, td, th {
       border: 1px solid black;
     }
