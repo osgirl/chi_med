@@ -15,8 +15,8 @@
         </div>
       </div>
         <div class="col-sm-12">
-          <h4 align="center">{{ env('APP_NAME', 'Recomed') }}</h4>
           <page size="A4">
+            <h4 align="center">{{ env('APP_NAME', 'Recomed') }}</h4>
             <table border="1"  width="100%">
               <tr class="warning">
                 <th width="125px">
