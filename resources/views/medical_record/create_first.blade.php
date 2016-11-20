@@ -317,12 +317,12 @@
                           <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="heading_{{$p->id}}">
                               <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$p->id}}" aria-expanded="@if($key==0) true @else false @endif" aria-controls="collapse_{{$p->id}}">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$p->id}}" aria-expanded="false" aria-controls="collapse_{{$p->id}}">
                                   {{ $p->part }}
                                 </a>
                               </h4>
                             </div>
-                            <div id="collapse_{{$p->id}}" class="panel-collapse collapse @if($key==0) in @endif" role="tabpanel" aria-labelledby="heading_{{$p->id}}">
+                            <div id="collapse_{{$p->id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_{{$p->id}}">
                               <div class="panel-body">
                                 @if(count($pe_minors)>0)
                                 <table class="table table-hover table-bordered table-condense">
