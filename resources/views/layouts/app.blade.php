@@ -33,9 +33,6 @@
         }
     </style>
     <style media="print" type="text/css">
-    div {
-      font-size: 14px;
-    }
     table, td, th {
       border: 1px solid black;
     }
@@ -48,13 +45,13 @@
         background-color: #E6E6E6 !important;
         padding: 2px 2px 2px 2px;
         text-align: center;
-        font-family:'Times New Roman',Times,serif;
+        font: 12pt Georgia, "Times New Roman", Times, serif;
     }
     td {
       vertical-align: center;
       padding: 2px 2px 2px 2px;
       padding-left: 10px;
-      font-family:'Times New Roman',Times,serif;
+      font: 10pt Georgia, "Times New Roman", Times, serif;
     }
     .warning{
       background-color: #E6E6E6 !important;
