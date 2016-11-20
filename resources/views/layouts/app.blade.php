@@ -45,10 +45,6 @@
           width: 29cm;
           height: 29.7cm;
         }
-        page[size="A4"][layout="portrait"] {
-          width: 29.7cm;
-          height: 21cm;
-        }
         @media print {
           body, page {
             margin: 0;

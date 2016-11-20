@@ -14,7 +14,7 @@
           <button type="button" onclick="print();" class="btn btn-primary btn-block" name="button">Print</button>
         </div>
       </div>
-        <div class="">
+        <div class="col-sm-12">
           <page size="A4">
             <h4 align="center">{{ env('APP_NAME', 'Recomed') }}</h4>
             <table border="1">
