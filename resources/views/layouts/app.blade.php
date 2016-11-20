@@ -53,6 +53,8 @@
           body, page {
             margin: 0;
             box-shadow: 0;
+            width: 210mm;
+            height: 297mm;
           }
           table, td, th {
             border: 1px solid black;
