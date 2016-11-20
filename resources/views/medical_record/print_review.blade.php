@@ -15,6 +15,7 @@
         </div>
       </div>
         <div class="col-sm-10 col-sm-offset-1">
+          <h4>{{ env('APP_NAME', 'Recomed') }}</h4>
           <table border="1" width="100%">
             <tr class="warning">
               <th width="80px">

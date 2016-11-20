@@ -15,99 +15,68 @@
         </div>
       </div>
         <div class="col-md-10 col-md-offset-1">
+          <h4 align="center">{{ env('APP_NAME', 'Recomed') }}</h4>
           <table border="1" width="100%">
             <tr class="warning">
               <th width="125px">
-
-                  {{ $record->surname}} {{$record->last_name}}
-                
+                {{ $record->surname}} {{$record->last_name}}
               </th>
               <th>
-
-                  DOB : {{ date('d-m-Y', strtotime($record->DOB))}}
-                
+                DOB : {{ date('d-m-Y', strtotime($record->DOB))}}
               </th>
               <th>
-
-                  No.
-                
+                No.
               </th>
               <td width="125px">
-
-                  {{ $record->treatment_number }}
-                
+                {{ $record->treatment_number }}
               </td>
               <td>
-
-                  Date
-                
+                Date
               </td>
               <td>
-
-                  {{ date('d-m-Y', strtotime($record->date))}}
-                
+                {{ date('d-m-Y', strtotime($record->date))}}
               </td>
             </tr>
             <tr>
               <th class="warning">
-
-                  Injury Date
-                
+                Injury Date
               </th>
               <td colspan="5">
-
-                  {{ date('d-m-Y', strtotime($record->injury_date))}}
-                
+                {{ date('d-m-Y', strtotime($record->injury_date))}}
               </td>
             </tr>
             <tr>
               <th class="info" colspan="6">
-
-                  Symptoms
-                
+                Symptoms
               </th>
             </tr>
             <tr>
               <td class="warning">
-
-                  Main Complaint / S
-                
+                Main Complaint / S
               </td>
               <td colspan="5">
-
-                  {{ $record->main_complaint}}
-                
+                {{ $record->main_complaint}}
               </td>
             </tr>
             <tr>
               <td class="warning">
-
-                  Current Condition and Accompanied Symptoms
-                
+                Current Condition and Accompanied Symptoms
               </td>
               <td colspan="5">
-
-                  {{ $record->symptoms}}
-                
+                {{ $record->symptoms}}
               </td>
             </tr>
             <tr>
               <td class="warning">
-
-                  General Question
-                
+                General Question
               </td>
               <td colspan="5">
-
-                  {{ $record->general_question }}
-                
+                {{ $record->general_question }}
               </td>
             </tr>
             <tr>
               <td class="warning">
-
-                  Past History
-                
+                Past History
               </td>
               <td colspan="5">
                 <div class="col-sm-12">
@@ -126,85 +95,59 @@
                     @if($record->fractures) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Fractures<br> @endif
                     @if($record->taking_prescribed_medicine) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Are you taking any prescribed medicine? (Antibiotics, Anticoagulants, Antidepressants)<br> @endif
                     @if($record->regularly_take_supplement) <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-Do you regularly take aspirin, Painkillers, Herbs, Vitamins or supplements?<br> @endif
-                  
+
                 </div>
               </td>
             </tr>
             <tr>
               <td class="warning">
-
                   If yes to any of the above, please give the full details
-                
               </td>
               <td colspan="5">
-
                   {{ $record->full_details}}
-                
               </td>
             </tr>
             <tr>
               <td class="warning">
-
                   Mentruation, marital & obstetrical history
-                
               </td>
               <td colspan="5">
-
                   {{ $record->menstruation}}
-                
               </td>
             </tr>
             <tr>
               <td class="warning">
-
                   Current Physical Examinations
-                
               </td>
               <td colspan="5">
-
                   {{ $record->physical_examinations}}
-                
               </td>
             </tr>
             <tr>
               <td class="warning">
-
                   Family History
-                
               </td>
               <td colspan="5">
-
-                  {{ $record->family_history}}
-                
+                {{ $record->family_history}}
               </td>
             </tr>
             <tr class="info">
               <th colspan="6">
-
-                  Tongue:
-                
+                Tongue:
               </th>
             </tr>
             <tr>
               <td class="col-sm-1 warning">
-
-                  Tongue Texture
-                
+                Tongue Texture
               </td>
               <td colspan="2" class="col-sm-3">
-
-                  {{ $record->tongue_status }}
-                
+                {{ $record->tongue_status }}
               </td>
               <td class="col-sm-1 warning">
-
-                  Body Colour
-                
+                Body Colour
               </td>
               <td colspan="2" class="col-sm-3">
-
-                  {{ $record->body_colour}}
-                
+                {{ $record->body_colour}}
               </td>
             </tr>
             <tr>
@@ -222,9 +165,7 @@
             <tr>
               <td class="warning">Pulses (Overall Speed)</td>
               <td colspan="5">
-
-                  {{ $record->pulses }}
-                
+                {{ $record->pulses }}
               </td>
             </tr>
             <tr class="warning">

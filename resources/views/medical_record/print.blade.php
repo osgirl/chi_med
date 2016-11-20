@@ -15,121 +15,82 @@
         </div>
       </div>
         <div class="col-md-10 col-md-offset-1">
+          <h4 align="center">{{ env('APP_NAME', 'Recomed') }}</h4>
           <table border="1"  width="100%">
             <tr class="warning">
               <th width="125px">
-
                   {{ $record->surname}} {{$record->last_name}}
-                
               </th>
               <th>
-
                   DOB : {{ date('d-m-Y', strtotime($record->DOB))}}
-                
               </th>
               <th>
-
                   No.
-                
               </th>
               <td width="125px">
-
                   {{ $record->treatment_number }}
-                
               </td>
               <td>
-
                   Date
-                
               </td>
               <td>
-
                   {{ date('d-m-Y', strtotime($record->date))}}
-                
               </td>
             </tr>
             <tr>
               <th class="info" colspan="6">
-
                   Symptoms
-                
               </th>
             </tr>
             <tr>
               <td class="warning">
-
                   Main Complaint / S
-                
               </td>
               <td colspan="5">
-
                   {{ $record->main_complaint}}
-                
               </td>
             </tr>
             <tr>
               <td class="warning">
-
                   Current Condition and Accompanied Symptoms
-                
               </td>
               <td colspan="5">
-
                   {{ $record->symptoms}}
-                
               </td>
             </tr>
             <tr>
               <td class="warning">
-
                   General Question
-                
               </td>
               <td colspan="5">
-
                   {{ $record->general_question }}
-                
               </td>
             </tr>
             <tr>
               <td class="warning">
-
                   Current Physical Examinations
-                
               </td>
               <td colspan="5">
-
                   {{ $record->physical_examinations}}
-                
               </td>
             </tr>
             <tr class="info">
               <th colspan="6">
-
                   Tongue:
-                
               </th>
             </tr>
             <tr>
               <td class="col-sm-1 warning">
-
                   Tongue Texture
-                
               </td>
               <td colspan="2" class="col-sm-3">
-
                   {{ $record->tongue_status }}
-                
               </td>
               <td class="col-sm-1 warning">
-
                   Body Colour
-                
               </td>
               <td colspan="2" class="col-sm-3">
-
                   {{ $record->body_colour}}
-                
               </td>
             </tr>
             <tr>
@@ -147,9 +108,7 @@
             <tr>
               <td class="warning">Pulses (Overall Speed)</td>
               <td colspan="5">
-
                   {{ $record->pulses }}
-                
               </td>
             </tr>
             <tr class="warning">
