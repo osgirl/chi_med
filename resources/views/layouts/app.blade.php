@@ -21,7 +21,7 @@
     <!--Flipclock-->
     <link rel="stylesheet" href="{{ asset('css/flipclock.css') }}">
     <!--css reset-->
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset-context/cssreset-context-min.css">
 
     <style>
         body {
@@ -45,13 +45,13 @@
         background-color: #E6E6E6 !important;
         padding: 2px 2px 2px 2px;
         text-align: center;
-        font: 12pt Georgia, "Times New Roman", Times, serif;
+        font-family:'Times New Roman',Times,serif;
     }
     td {
       vertical-align: center;
       padding: 2px 2px 2px 2px;
       padding-left: 10px;
-      font: 10pt Georgia, "Times New Roman", Times, serif;
+      font-family:'Times New Roman',Times,serif;
     }
     .warning{
       background-color: #E6E6E6 !important;
