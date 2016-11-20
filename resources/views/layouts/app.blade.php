@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <!--Flipclock-->
     <link rel="stylesheet" href="{{ asset('css/flipclock.css') }}">
+    <!--css reset-->
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
 
     <style>
         body {
@@ -31,9 +33,6 @@
         }
     </style>
     <style media="print" type="text/css">
-    div {
-      font-size: 12px;
-    }
     table, td, th {
       border: 1px solid black;
     }
