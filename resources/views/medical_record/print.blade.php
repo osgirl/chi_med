@@ -14,10 +14,10 @@
           <button type="button" onclick="print();" class="btn btn-primary btn-block" name="button">Print</button>
         </div>
       </div>
-        <div class="col-sm-12">
+        <div class="">
           <page size="A4">
             <h4 align="center">{{ env('APP_NAME', 'Recomed') }}</h4>
-            <table border="1"  width="100%">
+            <table border="1">
               <tr class="warning">
                 <th width="125px">
                     {{ $record->surname}} {{$record->last_name}}

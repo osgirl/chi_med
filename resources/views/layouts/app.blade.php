@@ -42,7 +42,7 @@
           padding: 30px 30px 30px 30px;
         }
         page[size="A4"] {
-          width: 21cm;
+          width: 29cm;
           height: 29.7cm;
         }
         page[size="A4"][layout="portrait"] {
@@ -53,16 +53,11 @@
           body, page {
             margin: 0;
             box-shadow: 0;
-            width: 210mm;
-            height: 297mm;
+            font-size: 14pt;
           }
           table, td, th {
             border: 1px solid black;
-          }
-
-          table {
             border-collapse: collapse;
-            width: 100%;
           }
           th{
               background-color: #E6E6E6 !important;
