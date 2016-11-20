@@ -27,12 +27,12 @@
             <div class="panel panel-default">
               <div class="panel-heading" role="tab" id="heading{{$major->part}}">
                 <h4 class="panel-title">
-                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$major->part}}" aria-expanded="@if($key==0) true @else false @endif" aria-controls="collapse_{{$major->part}}">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{$major->part}}" aria-expanded="false" aria-controls="collapse_{{$major->part}}">
                     {{ $major->part }}
                   </a>
                 </h4>
               </div>
-              <div id="collapse_{{$major->part}}" class="panel-collapse collapse @if($key==0) in @endif" role="tabpanel" aria-labelledby="heading{{$major->part}}">
+              <div id="collapse_{{$major->part}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{$major->part}}">
                 <div class="panel-body">
                   <form action="{{ url('physical/minor/'.$major->id) }}" method="post" enctype="multipart/form-data">
                     {!! csrf_field() !!}
