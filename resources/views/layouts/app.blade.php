@@ -52,7 +52,7 @@
           padding: 40px 40px 40px 40px;
         }
         page[size="A4"] {
-          width: 23cm;
+          width: 28cm;
           height: 29.7cm;
         }
         @media print {
