@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="">
     <div class="row">
+      <h1 class="page-header">@if(count($patient)>0) {{ $patient->surname}}  {{ $patient->last_name}} @else Patients @endif</h1>
       <div class="well well-sm col-sm-12">
         <div class="col-sm-3">
           @if( count($acc_infos) > 0 )

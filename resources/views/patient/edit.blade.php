@@ -38,8 +38,9 @@ function delRow(btn) {
   row.parentNode.removeChild(row);
 }
 </script>
-<div class="container">
+<div class="">
     <div class="row">
+      <h1 class="page-header">Edit Patient</h1>
       <div class="col-sm-12">
         <div class="col-sm-12 well well-sm">
           <div class="col-sm-3">

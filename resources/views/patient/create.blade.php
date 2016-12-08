@@ -56,8 +56,9 @@ function checkForm(button){
   }
 }
 </script>
-<div class="container">
+<div class="">
     <div class="row">
+      <h1 class="page-header">New Patient</h1>
       <div class="well well-sm col-sm-12">
         <div class="col-sm-3">
           <a href="{{ url('home') }}" class="btn btn-warning btn-block">

@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="">
     <div class="row">
+      <h1 class="page-header">Review</h1>
       <div class="well well-sm col-sm-12">
         <div class="col-sm-3">
           <a href="{{ url('/patient/'.$patient->id)}}" class="btn btn-warning btn-block">

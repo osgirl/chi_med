@@ -1,8 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="">
     <div class="row">
+      <h1 class="page-header">Physical Setup</h1>
+      <div class="well well-sm col-sm-12">
+        <div class="col-sm-3">
+          <a href="{{ url('home')}}" class="btn btn-warning btn-block">
+            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            Back
+          </a>
+        </div>
+      </div>
         <div class="col-sm-10 col-sm-offset-1">
           <div class="col-sm-6">
             <form class="form-horizontal" action="{{ url('/physical/major')}}" method="post" role="form">
