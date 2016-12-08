@@ -58,6 +58,7 @@
         @media print {
           body, page {
             margin: 0;
+            padding-left: 0;
             box-shadow: 0;
             font-size: 14pt;
           }
