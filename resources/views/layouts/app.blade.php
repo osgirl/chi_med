@@ -51,6 +51,10 @@
           box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
           padding: 25px 25px 25px 25px;
         }
+        page[size="A4"] {
+          width: 29cm;
+          height: 29.7cm;
+        }
         @media print {
           body, page {
             margin: 0;
