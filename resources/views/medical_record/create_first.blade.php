@@ -71,7 +71,7 @@
                       </td>
                       <td>Date</td>
                       <td>
-                        <input class="datepicker form-control" name="date" size="16" type="date" value="{{ date('d-m-Y')}}" required>
+                        <input class="datepicker form-control" name="date" size="16" type="text" value="{{ date('d-m-Y')}}" required>
                       </td>
                     </tr>
                     <tr>
