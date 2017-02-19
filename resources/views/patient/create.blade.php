@@ -70,7 +70,7 @@ function checkForm(button){
       </div>
         <form action="{{ url('/patient')}}" method="post" role="form">
           {!! csrf_field() !!}
-          <div class="form-group col-sm-8">
+          <div class="form-group col-sm-12">
             <table class="table table-hover table-bordered table-condense">
               <tr class="info">
                 <th colspan="8">Patient Informations</th>
@@ -96,7 +96,7 @@ function checkForm(button){
                 <td><input class="form-control" type="text" name="phone" value=""></td>
                 <td class="warning">D.O.B</td>
                 <td>
-                  <input class="form-control" type="text" name="DOB" value="" placeholder="dd-mm-yyyy">
+                  <input class="form-control datepicker" type="date" name="DOB" value="" placeholder="dd-mm-yyyy">
                 </td>
                 <td class="warning">Cell Phone</td>
                 <td><input class="form-control" type="text" name="cell_phone" value=""></td>
@@ -111,7 +111,7 @@ function checkForm(button){
               </tr>
             </table>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-8">
             <table class="table table-hover table-bordered table-condense" id="tblACC">
               <tr class="warning">
                 <td class="col-sm-7">
@@ -123,7 +123,9 @@ function checkForm(button){
                 <td></td>
               </tr>
             </table>
-            <button type="button"v class="btn btn-primary" name="button" onclick="addRow();">Add Acc</button>
+          </div>
+          <div class="col-sm-4">
+            <button type="button"v class="btn btn-primary btn-block" name="button" onclick="addRow();">Add Acc</button>
           </div>
           <div class="col-sm-12">
             <div class="col-sm-4">

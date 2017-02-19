@@ -37,6 +37,8 @@ Route::group(['middleware' => ['web','auth']], function () {
 
   //Route::get('/test', 'HomeController@test');
 
+  Route::resource('/Aio', 'AioController');
+
   Route::resource('/medical_record', 'MedicalRecordController');
 
   Route::resource('/medical_review', 'MedicalReviewController');

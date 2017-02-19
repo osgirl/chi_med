@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <!--css reset-->
     <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset-context/cssreset-context-min.css">
+    <!--datepicker-->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css">
 
     <style>
         body {
@@ -135,9 +137,24 @@
                       <div class="col-sm-12 alert alert-info">
                         <h3 class="animated fadeIn">Hello @if (!Auth::guest()) {{ Auth::user()->name }} @endif</h3>
                       </div>
-                      <h4 class="animated fadeIn" id="date_now"></h4>
-                      <h4 class="animated fadeIn" id="weekday_now"></h4>
-                      <h4 class="animated fadeIn" id="jsclock"></h4>
+                      <div class="col-sm-12 alert alert-success">
+                        <h4 class="animated fadeIn" id="date_now"></h4>
+                        <h4 class="animated fadeIn" id="weekday_now"></h4>
+                        <h4 class="animated fadeIn" id="jsclock"></h4>
+                      </div>
+                      <div class="col-sm-12 alert alert-warning">
+                        @if (!Auth::guest())
+                          @if(Auth::user()->admin)
+                          <h3 class="animated fadeIn">Role : Administrator</h3>
+                          <a href="{{{ url('/user') }}}" type="button" class="btn btn-block btn-warning">Permission Setup</a>
+                          <a href="{{{ url('/physical') }}}" type="button" class="btn btn-block btn-warning">Physical Setup</a>
+                          @elseif(Auth::user()->admin)
+                          <h3 class="animated fadeIn">Role : User</h3>
+                          @else
+                          <h3 class="animated fadeIn">Not Authorized</h3>
+                          @endif
+                        @endif
+                      </div>
                     </li>
                   </ul>
               </div>
@@ -177,12 +194,17 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+
     <script src="{{ asset('js/jsclock-0.8.min.js')}}"></script>
 
     <script type="text/javascript">
       $('select').select2();
       $(document).ready(function(){
          $('#jsclock').jsclock();
+         $('.datepicker').datepicker({
+           format: 'dd-mm-yyyy'
+         });
       });
     </script>
 </body>
