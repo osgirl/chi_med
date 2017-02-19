@@ -1,20 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.print_layout')
 
 @section('content')
 <div class="">
     <div class="row">
-      <h1 class="page-header hidden-print">Print</h1>
-      <div class="well well- sm col-sm-12 hidden-print">
-        <div class="col-sm-3">
-          <a href="{{ url('/patient/'.$record->patient_id)}}" class="btn btn-warning btn-block">
-            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-            Back
-          </a>
-        </div>
-        <div class="col-sm-3">
-          <button type="button" onclick="print();" class="btn btn-primary btn-block" name="button">Print</button>
-        </div>
-      </div>
         <div class="col-sm-12">
           <page size="A4">
             <h4 align="center">{{ env('APP_NAME', 'Recomed') }}</h4>

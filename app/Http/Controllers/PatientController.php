@@ -144,18 +144,6 @@ class PatientController extends Controller
         'address' => $request->address,
         'blood_type' => $request->blood_type
       ]);
-      //acc records cant be modified
-      /*
-      DB::table('acc_infos')->where('patient_id','=', $id)->delete();
-      */
-      $length = count($request->acc_number);
-      for($i=0 ; $i<$length ; $i++){
-        $acc_number = DB::table('acc_infos')->insert(array(
-          'patient_id' => $id,
-          'acc_number' => $request->acc_number[$i],
-          'parts'=> $request->acc_part[$i],
-        ));
-      }
 
       return redirect('/patient/'.$id)->with('message','Updated !');
     }

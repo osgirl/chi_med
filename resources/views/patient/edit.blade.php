@@ -55,7 +55,7 @@ function delRow(btn) {
           <form action="{{ url('/patient/'.$patient->id)}}" method="post" role="form">
             {!! csrf_field() !!}
             <input type="hidden" name="_method" value="put" />
-            <div class="form-group col-sm-8">
+            <div class="form-group col-sm-12">
               <table class="table table-hover table-bordered table-condense">
                 <tr class="info">
                   <th colspan="8">Patient Informations</th>
@@ -81,7 +81,7 @@ function delRow(btn) {
                   <td><input class="form-control" type="text" name="phone" value=" {{ $patient->phone}}"></td>
                   <td class="warning">D.O.B</td>
                   <td>
-                    <input class="form-control" type="text" name="DOB" value="{{ date('d-m-Y', strtotime($patient->DOB)) }}" placeholder="dd-mm-yyyy">
+                    <input class="form-control datepicker" type="date" name="DOB" value="{{ date('d-m-Y', strtotime($patient->DOB)) }}" placeholder="dd-mm-yyyy">
                   </td>
                   <td class="warning">Cell Phone</td>
                   <td><input class="form-control" type="text" name="cell_phone" value="{{ $patient->cell_phone}}"></td>
@@ -95,33 +95,6 @@ function delRow(btn) {
                   </td>
                 </tr>
               </table>
-            </div>
-            <div class="col-sm-4">
-              <table class="table table-hover table-bordered table-condense" id="tblACC">
-                <tr class="warning">
-                  <td class="col-sm-7">
-                    ACC Number
-                  </td>
-                  <td class="col-sm-5">
-                    Parts
-                  </td>
-                  <td></td>
-                </tr>
-                @foreach($acc_infos as $acc)
-                <tr>
-                  <td>
-                    {{ $acc->acc_number }}
-                  </td>
-                  <td>
-                    {{ $acc->parts }}
-                  </td>
-                  <td>
-
-                  </td>
-                </tr>
-                @endforeach
-              </table>
-              <button type="button"v class="btn btn-primary" name="button" onclick="addRow();">Add Acc</button>
             </div>
             <div class="col-sm-12">
               <input type="submit" class="btn btn-success btn-block" value="Save">

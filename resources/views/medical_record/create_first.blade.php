@@ -71,19 +71,13 @@
                       </td>
                       <td>Date</td>
                       <td>
-                        <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
-                          <input class="span2 form-control" name="date" size="16" type="text" value="{{ date('d-m-Y')}}" required>
-                          <span class="add-on"><i class="icon-th"></i></span>
-                        </div>
+                        <input class="datepicker form-control" name="date" size="16" type="date" value="{{ date('d-m-Y')}}" required>
                       </td>
                     </tr>
                     <tr>
                       <th class="warning">Injury Date</th>
                       <td colspan="5">
-                        <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
-                          <input class="span2 form-control" name="injury_date" size="16" type="text" placeholder="dd-mm-yyyy" required>
-                          <span class="add-on"><i class="icon-th"></i></span>
-                        </div>
+                        <input class="datepicker form-control" name="injury_date" size="16" type="text" placeholder="dd-mm-yyyy" required>
                       </td>
                     </tr>
                     <tr>

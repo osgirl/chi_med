@@ -71,10 +71,7 @@
                       </td>
                       <td>Date</td>
                       <td>
-                        <div class="input-append date" id="dp3" data-date="{{ date('d-m-Y')}}" data-date-format="dd-mm-yyyy">
-                          <input class="span2 form-control" name="date" size="16" type="text" value="{{ date('d-m-Y')}}" required>
-                          <span class="add-on"><i class="icon-th"></i></span>
-                        </div>
+                        <input class="datepicker form-control" name="date" size="16" type="text" value="{{ date('d-m-Y')}}" required>
                       </td>
                     </tr>
                     <tr>
