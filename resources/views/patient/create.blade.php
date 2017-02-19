@@ -96,7 +96,7 @@ function checkForm(button){
                 <td><input class="form-control" type="text" name="phone" value=""></td>
                 <td class="warning">D.O.B</td>
                 <td>
-                  <input class="form-control datepicker" type="date" name="DOB" value="" placeholder="dd-mm-yyyy">
+                  <input class="form-control datepicker" type="text" name="DOB" value="" placeholder="dd-mm-yyyy">
                 </td>
                 <td class="warning">Cell Phone</td>
                 <td><input class="form-control" type="text" name="cell_phone" value=""></td>
