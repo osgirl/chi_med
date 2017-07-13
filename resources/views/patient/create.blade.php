@@ -36,6 +36,7 @@ function checkCode(){
     });
   }
 }
+/*
 function checkForm(button){
   var codes = [
     @foreach($patient as $p)
@@ -54,7 +55,7 @@ function checkForm(button){
   }else{
     button.form.submit();
   }
-}
+}*/
 </script>
 <div class="">
     <div class="row">
@@ -81,7 +82,7 @@ function checkForm(button){
                 <td class="warning col-sm-1">Last Name</td>
                 <td class="col-sm-2"><input class="form-control" type="text" name="last_name" value="" required></td>
                 <td class="warning col-sm-1">Patient Code</td>
-                <td class="col-sm-2"><input class="form-control" type="text" onchange="checkCode();" id="patient_code" name="patient_code" value="" required></td>
+                <td class="col-sm-2"><input class="form-control" type="text" oninput="checkCode();" id="patient_code" name="patient_code" value="" required></td>
                 <td class="col-sm-1 warning">Gender</td>
                 <td class="col-sm-2">
                   <select name="gender" class="form-control">
@@ -96,7 +97,7 @@ function checkForm(button){
                 <td><input class="form-control" type="text" name="phone" value=""></td>
                 <td class="warning">D.O.B</td>
                 <td>
-                  <input class="form-control datepicker" type="text" name="DOB" value="" placeholder="dd-mm-yyyy" required>
+                  <input class="form-control datepicker" type="text" name="DOB" value="" placeholder="dd-mm-yyyy" required="true">
                 </td>
                 <td class="warning">Cell Phone</td>
                 <td><input class="form-control" type="text" name="cell_phone" value=""></td>
@@ -129,7 +130,7 @@ function checkForm(button){
           </div>
           <div class="col-sm-12">
             <div class="col-sm-4">
-              <input type="button" onclick="checkForm(this);" class="btn btn-success btn-block" value="Save">
+              <input type="submit" class="btn btn-success btn-block" value="Save">
             </div>
           </div>
         </form>
