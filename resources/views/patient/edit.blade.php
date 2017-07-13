@@ -81,7 +81,7 @@ function delRow(btn) {
                   <td><input class="form-control" type="text" name="phone" value=" {{ $patient->phone}}"></td>
                   <td class="warning">D.O.B</td>
                   <td>
-                    <input class="form-control datepicker" type="text" name="DOB" value="{{ date('d-m-Y', strtotime($patient->DOB)) }}" placeholder="dd-mm-yyyy">
+                    <input class="form-control datepicker" type="text" name="DOB" value="{{ date('d-m-Y', strtotime($patient->DOB)) }}" placeholder="dd-mm-yyyy" required>
                   </td>
                   <td class="warning">Cell Phone</td>
                   <td><input class="form-control" type="text" name="cell_phone" value="{{ $patient->cell_phone}}"></td>
